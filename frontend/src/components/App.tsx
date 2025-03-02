@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import carsData from "../constants/cars.json";
 import customersData from "../constants/customers.json";
-import { FaSearch } from "react-icons/fa";
+import SearchBar from "./SearchBar";
 
 interface Car {
   id: string;
@@ -47,26 +47,17 @@ export default function App() {
     backgroundColor: "#555555",
     color: "white",
   };
-  const thStyle2: React.CSSProperties = {
-    padding: 0,
-    height: "2.5rem",
-    textAlign: "center",
-  };
-  const inputStyle: React.CSSProperties = {
-    width: "100%",
-    height: "100%",
-    border: "none",
-    outline: "none",
-    padding: "5px",
-    boxSizing: "border-box",
-    fontSize: "inherit",
-  };
 
   const [activeTab, setActiveTab] = useState<string>("fleet");
   const [cars, setCars] = useState<Car[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [queryParams, setQueryParams] = useState<{
+    search: { [index: number]: string };
+    page: number;
+  } | null>(null);
 
+  console.log(queryParams);
   //-------------------------------------
   // Szimulált aszinkron adatbetöltés
   useEffect(() => {}, [activeTab]);
@@ -146,62 +137,11 @@ export default function App() {
                     <th style={thStyle}>Contract</th>
                     <th style={thStyle}>Contract duration</th>
                   </tr>
-                  <tr>
-                    <th style={thStyle2}>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "0.5rem",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      >
-                        <FaSearch />
-                        Search...
-                      </div>
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                    <th style={thStyle2}>
-                      <input type="text" style={inputStyle} />
-                    </th>
-                  </tr>
+                  <SearchBar
+                    SearchBarSum={13}
+                    queryParams={queryParams}
+                    setQueryParams={setQueryParams}
+                  />
                 </thead>
                 <tbody style={{ padding: "2px", textAlign: "center" }}>
                   {cars.map((car, index) => (
