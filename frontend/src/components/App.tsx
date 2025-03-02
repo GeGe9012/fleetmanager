@@ -60,7 +60,6 @@ export default function App() {
   console.log(queryParams);
   //-------------------------------------
   // Szimulált aszinkron adatbetöltés
-  useEffect(() => {}, [activeTab]);
   useEffect(() => {
     setLoading(true);
     setCars([]);
@@ -72,6 +71,10 @@ export default function App() {
     }, 2000); // 2 másodperces késleltetés a szimulációhoz
   }, [activeTab]);
   //------------------------------------
+  
+  useEffect(() => {
+    setQueryParams(null)
+  }, [activeTab]);
 
   return (
     <>
@@ -185,6 +188,11 @@ export default function App() {
                     <th style={thStyle}>License Plate</th>
                     <th style={thStyle}>Tax Number</th>
                   </tr>
+                  <SearchBar
+                    SearchBarSum={9}
+                    queryParams={queryParams}
+                    setQueryParams={setQueryParams}
+                  />
                 </thead>
                 <tbody style={{ padding: "2px", textAlign: "center" }}>
                   {customers.map((customer, index) => (
