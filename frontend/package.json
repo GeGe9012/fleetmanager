@@ -13,11 +13,13 @@
     "axios": "^1.8.1",
     "bootstrap": "^5.3.3",
     "column-resizer": "^1.4.0",
+    "formik": "^2.4.6",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.2.0"
+    "react-router-dom": "^7.2.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
