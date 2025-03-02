@@ -94,9 +94,25 @@ export default function App() {
       >
         The Fleet Manager
       </h1>
-      <Button variant="primary" size="lg" onClick={() => navigate("/newdata")}>
-        Add new data
-      </Button>
+      <div className="d-flex flex-row gap-4">
+        <Button variant="primary" size="lg" onClick={() => navigate("/newcar")}>
+          Add new car
+        </Button>
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={() => navigate("/newcustomer")}
+        >
+          Add new customer
+        </Button>
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={() => navigate("/newcompany")}
+        >
+          Add new company
+        </Button>
+      </div>
       {loading ? (
         <div
           style={{
