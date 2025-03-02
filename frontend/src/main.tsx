@@ -2,8 +2,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./components/App";
-import NewData from "./components/NewData";
+import NewCar from "./components/NewCar";
 import NotFoundPage from "./components/NotFoundPage";
+import NewCustomer from "./components/NewCustomer";
+import NewCompany from "./components/NewCompany";
 
 const router = createBrowserRouter([
   {
@@ -11,8 +13,16 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/newdata",
-    element: <NewData />,
+    path: "/newcar",
+    element: <NewCar />,
+  },
+  {
+    path: "/newcustomer",
+    element: <NewCustomer />,
+  },
+  {
+    path: "/newcompany",
+    element: <NewCompany />,
   },
   {
     path: "*",
