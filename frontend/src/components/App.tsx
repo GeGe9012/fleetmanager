@@ -2,11 +2,10 @@ import ResizableTable from "./ResizableTable";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { useState, useEffect } from "react";
-import { Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import carsData from "../constants/cars.json";
 import customersData from "../constants/customers.json";
 import SearchBar from "./SearchBar";
-import { useNavigate } from "react-router-dom";
 
 interface Car {
   id: string;
@@ -58,8 +57,6 @@ export default function App() {
     page: number;
   } | null>(null);
 
-  const navigate = useNavigate();
-
   console.log(queryParams);
   //-------------------------------------
   // Szimulált aszinkron adatbetöltés
@@ -71,7 +68,7 @@ export default function App() {
       setCars(carsData);
       setCustomers(customersData);
       setLoading(false);
-    }, 2000); // 2 másodperces késleltetés a szimulációhoz
+    }, 2000);
   }, [activeTab]);
   //------------------------------------
 
@@ -80,39 +77,7 @@ export default function App() {
   }, [activeTab]);
 
   return (
-    <main
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1.5rem",
-        alignItems: "center",
-      }}
-    >
-      <h1
-        className="display-4 text-center"
-        style={{ fontWeight: "bold", margin: "1rem" }}
-      >
-        The Fleet Manager
-      </h1>
-      <div className="d-flex flex-row gap-4">
-        <Button variant="primary" size="lg" onClick={() => navigate("/newcar")}>
-          Add new car
-        </Button>
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={() => navigate("/newcustomer")}
-        >
-          Add new customer
-        </Button>
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={() => navigate("/newcompany")}
-        >
-          Add new company
-        </Button>
-      </div>
+    <>
       {loading ? (
         <div
           style={{
@@ -248,6 +213,6 @@ export default function App() {
           </Tabs>
         </div>
       )}
-    </main>
+    </>
   );
 }
