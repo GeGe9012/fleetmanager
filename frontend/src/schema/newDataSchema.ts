@@ -11,6 +11,9 @@ const validationSchema = Yup.object().shape({
     .min(6, "A jelszónak legalább 6 karakter hosszúnak kell lennie!")
     .required("Kérlek, adj meg egy jelszót!"),
   terms: Yup.bool().oneOf([true], "El kell fogadnod a feltételeket!"),
+  modelYear: Yup.date()
+    .required("Az évjárat megadása kötelező") // Ellenőrizd, hogy string legyen a hibaüzenet!
+    .typeError("Érvényes évszámot adj meg!"),
 });
 
 export default validationSchema;
