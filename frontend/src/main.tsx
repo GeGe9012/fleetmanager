@@ -6,27 +6,34 @@ import NewCar from "./components/NewCar";
 import NotFoundPage from "./components/NotFoundPage";
 import NewCustomer from "./components/NewCustomer";
 import NewCompany from "./components/NewCompany";
+import MainLayout from "./layouts/MainLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-  },
-  {
-    path: "/newcar",
-    element: <NewCar />,
-  },
-  {
-    path: "/newcustomer",
-    element: <NewCustomer />,
-  },
-  {
-    path: "/newcompany",
-    element: <NewCompany />,
-  },
-  {
-    path: "*",
-    element: <NotFoundPage />,
+    element: <MainLayout />,
+    children: [
+      {
+        path: "",
+        element: <App />,
+      },
+      {
+        path: "newcar",
+        element: <NewCar />,
+      },
+      {
+        path: "newcustomer",
+        element: <NewCustomer />,
+      },
+      {
+        path: "newcompany",
+        element: <NewCompany />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
   },
 ]);
 
