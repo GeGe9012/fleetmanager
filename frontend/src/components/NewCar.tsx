@@ -110,7 +110,7 @@ export default function NewCar() {
             </Form.Group>
 
             <Form.Group controlId="modelYear" className="mt-3">
-              <Form.Label>Modell year</Form.Label>
+              <Form.Label>Modell Year</Form.Label>
               <DatePicker
                 selected={formik.values.model_year}
                 onChange={(date) => formik.setFieldValue("model_year", date)}

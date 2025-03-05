@@ -131,7 +131,6 @@ export default function NewCustomer() {
               </Form.Control.Feedback>
             </Form.Group>
 
-            {/* Address Fields */}
             <h4 className="mt-4">Address</h4>
 
             <Form.Group controlId="zipcode" className="mt-3">
