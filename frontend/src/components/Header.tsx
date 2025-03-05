@@ -20,8 +20,7 @@ export default function Header() {
                 color: "white",
                 borderRadius: "5px",
                 marginRight: "15px",
-                marginTop: "0.7rem",
-                padding: "8px 16px",
+                marginTop: "1rem",
                 display: "inline-block",
                 fontWeight: "bold",
                 fontSize: "1.2rem",
@@ -47,10 +46,17 @@ export default function Header() {
             background-color: #007bff !important;
             color: white !important;
             border-radius: 5px;
-            padding: 8px 16px;
             font-weight: bold;
             font-size: 1.2rem;
-            margin-top: 0.7rem;
+            margin-top: 1rem;
+          }
+          .dropdown-menu .dropdown-item {
+            transition: background-color 0.3s ease, color 0.3s ease;
+          }
+          
+          .custom-dropdown .dropdown-menu .dropdown-item:hover {
+            background-color: #007bff !important;
+            color: white !important;
           }
         `}
       </style>
