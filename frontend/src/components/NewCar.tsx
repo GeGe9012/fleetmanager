@@ -1,42 +1,39 @@
 import { useFormik } from "formik";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import validationSchema from "../schema/newDataSchema";
+import validationSchema from "../schema/newCarSchema";
 import { createData } from "../services/createData";
 import carMakes from "../constants/carMakes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import colors from "../constants/colors";
 import warrantyTerms from "../constants/warrantyTerms";
-import companies from "../constants/companies";
 import { useEffect } from "react";
 
 export default function NewCar() {
-  
   const formik = useFormik({
     initialValues: {
       license_plate: "",
       make: "",
       model: "",
-      modelYear: null,
+      model_year: null,
       color: "",
-      fuelType: "",
+      fuel_type: "",
       vin: "",
-      regDate: null,
+      reg_date: null,
       drivetrain: "",
       warranty: "",
-      company: "",
     },
-    
+
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       console.log("Submitting values:", values); // Ellenőrizzük, hogy az értékek megjelennek-e
-      
+
       try {
         const response = await createData(values);
         if (!response) {
           console.error("An error occurred during data upload.");
         } else {
-          console.log("Data uploaded successfully!");
+          console.log("Data uploaded successfully!"); //!!!!!!!!!!!!!
           resetForm();
         }
       } catch (error) {
@@ -52,14 +49,14 @@ export default function NewCar() {
     console.log("Formik Errors:", formik.errors);
     console.log("Formik isValid:", formik.isValid);
   }, [formik.errors, formik.isValid]);
-  
+
   return (
     <Container className="mt-5">
       <Row className="justify-content-md-center">
         <Col md={6}>
           <h2 className="mb-4">Add new car data</h2>
           <Form noValidate onSubmit={formik.handleSubmit}>
-            <Form.Group controlId="license_plate" className="mt-3">
+            <Form.Group controlId="licensePlate" className="mt-3">
               <Form.Label>License Plate</Form.Label>
               <Form.Control
                 type="text"
@@ -115,16 +112,16 @@ export default function NewCar() {
             <Form.Group controlId="modelYear" className="mt-3">
               <Form.Label>Modell year</Form.Label>
               <DatePicker
-                selected={formik.values.modelYear}
-                onChange={(date) => formik.setFieldValue("modelYear", date)}
+                selected={formik.values.model_year}
+                onChange={(date) => formik.setFieldValue("model_year", date)}
                 showYearPicker
                 dateFormat="yyyy"
                 yearDropdownItemNumber={100}
                 scrollableYearDropdown
               />
-              {formik.touched.modelYear && formik.errors.modelYear && (
+              {formik.touched.model_year && formik.errors.model_year && (
                 <div className="text-danger">
-                  {String(formik.errors.modelYear)}
+                  {String(formik.errors.model_year)}
                 </div>
               )}
             </Form.Group>
@@ -163,18 +160,18 @@ export default function NewCar() {
                   key={type}
                   type="radio"
                   label={type}
-                  name="fuelType"
+                  name="fuel_type"
                   value={type}
-                  checked={formik.values.fuelType === type}
+                  checked={formik.values.fuel_type === type}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={
-                    formik.touched.fuelType && !!formik.errors.fuelType
+                    formik.touched.fuel_type && !!formik.errors.fuel_type
                   }
                 />
               ))}
               <Form.Control.Feedback type="invalid">
-                {formik.errors.fuelType}
+                {formik.errors.fuel_type}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -196,14 +193,14 @@ export default function NewCar() {
             <Form.Group controlId="regDate" className="mt-3">
               <Form.Label>Registration Date</Form.Label>
               <DatePicker
-                selected={formik.values.regDate}
-                onChange={(date) => formik.setFieldValue("regDate", date)}
+                selected={formik.values.reg_date}
+                onChange={(date) => formik.setFieldValue("reg_date", date)}
                 dateFormat="yyyy-MM-dd"
                 className="form-control"
               />
-              {formik.touched.regDate && formik.errors.regDate && (
+              {formik.touched.reg_date && formik.errors.reg_date && (
                 <div className="text-danger">
-                  {String(formik.errors.regDate)}
+                  {String(formik.errors.reg_date)}
                 </div>
               )}
             </Form.Group>
@@ -251,29 +248,8 @@ export default function NewCar() {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="company">
-              <Form.Label>Company</Form.Label>
-              <Form.Select
-                name="company"
-                value={formik.values.company}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                isInvalid={formik.touched.company && !!formik.errors.company}
-              >
-                <option value="">Choose company...</option>
-                {companies.map((company, index) => (
-                  <option key={index} value={company}>
-                    {company}
-                  </option>
-                ))}
-              </Form.Select>
-              <Form.Control.Feedback type="invalid">
-                {formik.errors.company}
-              </Form.Control.Feedback>
-            </Form.Group>
-
             <Button variant="primary" type="submit" className="mt-4 w-100">
-              Regisztráció
+              Add new car
             </Button>
           </Form>
         </Col>
