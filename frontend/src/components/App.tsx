@@ -6,6 +6,8 @@ import { Spinner } from "react-bootstrap";
 import carsData from "../constants/cars.json";
 import customersData from "../constants/customers.json";
 import SearchBar from "./SearchBar";
+import { FaSort } from "react-icons/fa";
+import { tableHeadsCars, tableHeadsCustomers } from "../constants/tableheads";
 
 interface Car {
   id: string;
@@ -22,6 +24,8 @@ interface Car {
   company: string;
   contract: string;
   contract_dur: string;
+  // Index signature szoros típusosítással
+  [key: string]: string | number | boolean; // Meghatározott típusok
 }
 
 interface Customer {
@@ -37,6 +41,8 @@ interface Customer {
   contract: string;
   license_plate: string;
   tax_nubmer: string;
+  // Index signature szoros típusosítással
+  [key: string]: string; // Meghatározott típusok
 }
 
 export default function App() {
@@ -56,6 +62,10 @@ export default function App() {
     search: { [index: number]: string };
     page: number;
   } | null>(null);
+  const [sortConfig, setSortConfig] = useState<{
+    key: string | null;
+    direction: "asc" | "desc";
+  }>({ key: null, direction: "asc" });
 
   console.log(queryParams);
   //-------------------------------------
@@ -64,13 +74,84 @@ export default function App() {
     setLoading(true);
     setCars([]);
     setCustomers([]);
+
     setTimeout(() => {
-      setCars(carsData);
-      setCustomers(customersData);
+      const uniqueCars = [
+        ...new Map(carsData.map((car) => [car.id, car])).values(),
+      ];
+      const uniqueCustomers = [
+        ...new Map(
+          customersData.map((customer) => [customer.id, customer])
+        ).values(),
+      ];
+
+      setCars(uniqueCars);
+      setCustomers(uniqueCustomers);
       setLoading(false);
     }, 2000);
   }, [activeTab]);
   //------------------------------------
+
+  // Az típusok meghatározása a Car és Customer típusai alapján
+  const sortData = (
+    data: Car[] | Customer[],
+    key: string | null,
+    direction: "asc" | "desc"
+  ) => {
+    if (!key) return data;
+    return [...data].sort((a, b) => {
+      const valA = a[key];
+      const valB = b[key];
+
+      if (typeof valA === "number" && typeof valB === "number") {
+        return direction === "asc" ? valA - valB : valB - valA;
+      } else {
+        return direction === "asc"
+          ? String(valA).localeCompare(String(valB))
+          : String(valB).localeCompare(String(valA));
+      }
+    });
+  };
+
+  const columnKeyMap: { [key: string]: string } = {
+    "License Plate": "license_plate",
+    "Make": "make",
+    "Model": "model",
+    "Model Year": "model_year",
+    "Color": "color",
+    "Fuel": "fuel_type",
+    "VIN": "vin",
+    "Registration Date": "reg_date",
+    "Drivetrain": "drivetrain",
+    "Warranty": "warranty",
+    "Company": "company",
+    "Contract": "contract",
+    "Contract duration": "contract_dur",
+    "First Name": "first_name",
+    "Last Name": "last_name",
+    "Company Name": "company",
+    "Phone Number": "phone_number",
+    "E-mail": "email",
+    "Address": "address_1",
+    "Tax Number": "tax_nubmer",
+  };
+
+  const handleSort = (column: string) => {
+    const key = columnKeyMap[column];
+    if (!key) return;
+
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
+  };
+
+  const sortedCars = sortData(cars, sortConfig.key, sortConfig.direction);
+  const sortedCustomers = sortData(
+    customers,
+    sortConfig.key,
+    sortConfig.direction
+  );
 
   useEffect(() => {
     setQueryParams(null);
@@ -120,19 +201,16 @@ export default function App() {
                 <thead>
                   <tr>
                     <th style={thStyle}>#</th>
-                    <th style={thStyle}>Licence Plate</th>
-                    <th style={thStyle}>Make</th>
-                    <th style={thStyle}>Model</th>
-                    <th style={thStyle}>Model Year</th>
-                    <th style={thStyle}>Color</th>
-                    <th style={thStyle}>Fuel</th>
-                    <th style={thStyle}>VIN</th>
-                    <th style={thStyle}>Registration Date</th>
-                    <th style={thStyle}>Drivetrain</th>
-                    <th style={thStyle}>Warranty</th>
-                    <th style={thStyle}>Company</th>
-                    <th style={thStyle}>Contract</th>
-                    <th style={thStyle}>Contract duration</th>
+                    {tableHeadsCars.map((column) => (
+                      <th
+                        key={column}
+                        style={{ ...thStyle, cursor: "pointer" }}
+                        onClick={() => handleSort(column)}
+                      >
+                        <span>{column}</span>
+                        <FaSort />
+                      </th>
+                    ))}
                   </tr>
                   <SearchBar
                     SearchBarSum={13}
@@ -141,7 +219,7 @@ export default function App() {
                   />
                 </thead>
                 <tbody style={{ padding: "2px", textAlign: "center" }}>
-                  {cars.map((car, index) => (
+                  {sortedCars.map((car, index) => (
                     <tr key={car.id}>
                       <td>{index + 1}</td>
                       <td>{car.license_plate}</td>
@@ -172,15 +250,16 @@ export default function App() {
                 <thead>
                   <tr>
                     <th style={thStyle}>#</th>
-                    <th style={thStyle}>First Name</th>
-                    <th style={thStyle}>Last Name</th>
-                    <th style={thStyle}>Company</th>
-                    <th style={thStyle}>Phone Number</th>
-                    <th style={thStyle}>E-mail</th>
-                    <th style={thStyle}>Address</th>
-                    <th style={thStyle}>Contract</th>
-                    <th style={thStyle}>License Plate</th>
-                    <th style={thStyle}>Tax Number</th>
+                    {tableHeadsCustomers.map((column) => (
+                      <th
+                        key={column}
+                        style={{ ...thStyle, cursor: "pointer" }}
+                        onClick={() => handleSort(column)}
+                      >
+                        <span>{column}</span>
+                        <FaSort />
+                      </th>
+                    ))}
                   </tr>
                   <SearchBar
                     SearchBarSum={9}
@@ -189,7 +268,7 @@ export default function App() {
                   />
                 </thead>
                 <tbody style={{ padding: "2px", textAlign: "center" }}>
-                  {customers.map((customer, index) => (
+                  {sortedCustomers.map((customer, index) => (
                     <tr key={customer.id}>
                       <td>{index + 1}</td>
                       <td>{customer.first_name}</td>
@@ -198,9 +277,9 @@ export default function App() {
                       <td>{customer.phone_number}</td>
                       <td>{customer.email}</td>
                       <td>
-                        {customer.address_1 +
-                          customer.address_2 +
-                          customer.address_3}
+                        {String(customer.address_1) +
+                          String(customer.address_2) +
+                          String(customer.address_3)}
                       </td>
                       <td>{customer.contract}</td>
                       <td>{customer.license_plate}</td>
