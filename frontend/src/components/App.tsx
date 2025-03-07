@@ -24,8 +24,7 @@ interface Car {
   company: string;
   contract: string;
   contract_dur: string;
-  // Index signature szoros típusosítással
-  [key: string]: string | number | boolean; // Meghatározott típusok
+  [key: string]: string | number | boolean;
 }
 
 interface Customer {
@@ -41,8 +40,7 @@ interface Customer {
   contract: string;
   license_plate: string;
   tax_nubmer: string;
-  // Index signature szoros típusosítással
-  [key: string]: string; // Meghatározott típusok
+  [key: string]: string;
 }
 
 export default function App() {
@@ -92,7 +90,6 @@ export default function App() {
   }, [activeTab]);
   //------------------------------------
 
-  // Az típusok meghatározása a Car és Customer típusai alapján
   const sortData = (
     data: Car[] | Customer[],
     key: string | null,
