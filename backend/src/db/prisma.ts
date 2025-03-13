@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { DATABASE_URL } from "../constant/base";
+import { DATABASE_URL } from "../constants/base";
 
 const prisma = new PrismaClient({
   datasources: {
