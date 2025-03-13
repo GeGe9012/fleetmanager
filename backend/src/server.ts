@@ -1,6 +1,6 @@
 import http from "http";
 import app from "./app";
-import { PORT } from "./constant/base";
+import { PORT } from "./constants/base";
 // import { initializeSocket } from "./io.js";
 
 const server = http.createServer(app);
