@@ -3,11 +3,10 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { useState, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
-import carsData from "../constants/cars.json";
-import customersData from "../constants/customers.json";
 import SearchBar from "./SearchBar";
 import { FaSort } from "react-icons/fa";
 import { tableHeadsCars, tableHeadsCustomers } from "../constants/tableheads";
+import { getAllCars } from "../services/carService";
 
 interface Car {
   id: string;
@@ -21,9 +20,6 @@ interface Car {
   reg_date: number;
   drivetrain: boolean;
   warranty: string;
-  company: string;
-  contract: string;
-  contract_dur: string;
   [key: string]: string | number | boolean;
 }
 
@@ -31,14 +27,12 @@ interface Customer {
   id: string;
   first_name: string;
   last_name: string;
-  company: string;
   phone_number: string;
   email: string;
   address_1: string;
   address_2: string;
   address_3: string;
   contract: string;
-  license_plate: string;
   tax_nubmer: string;
   [key: string]: string;
 }
@@ -65,30 +59,25 @@ export default function App() {
     direction: "asc" | "desc";
   }>({ key: null, direction: "asc" });
 
-  console.log(queryParams);
-  //-------------------------------------
-  // Szimulált aszinkron adatbetöltés
+  // console.log(queryParams); ////////////////////////////////
+
+  // Backend hívás az autók adatainak lekérésére
   useEffect(() => {
-    setLoading(true);
-    setCars([]);
-    setCustomers([]);
-
-    setTimeout(() => {
-      const uniqueCars = [
-        ...new Map(carsData.map((car) => [car.id, car])).values(),
-      ];
-      const uniqueCustomers = [
-        ...new Map(
-          customersData.map((customer) => [customer.id, customer])
-        ).values(),
-      ];
-
-      setCars(uniqueCars);
-      setCustomers(uniqueCustomers);
-      setLoading(false);
-    }, 2000);
+    if (activeTab === "fleet") {
+      setLoading(true);
+      getAllCars()
+        .then((data) => {
+          setCars(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+        });
+    }
   }, [activeTab]);
-  //------------------------------------
+  ////////////////////////////////////
+  console.log(cars)
 
   const sortData = (
     data: Car[] | Customer[],
@@ -219,19 +208,19 @@ export default function App() {
                   {sortedCars.map((car, index) => (
                     <tr key={car.id}>
                       <td>{index + 1}</td>
-                      <td>{car.license_plate}</td>
-                      <td>{car.make}</td>
-                      <td>{car.model}</td>
-                      <td>{car.model_year}</td>
-                      <td>{car.color}</td>
-                      <td>{car.fuel_type ? "Diesel" : "Petrol"}</td>
-                      <td>{car.vin}</td>
-                      <td>{car.reg_date}</td>
-                      <td>{car.drivetrain ? "AWD/FWD" : "FWD"}</td>
-                      <td>{car.warranty}</td>
-                      <td>{car.company}</td>
-                      <td>{car.contract}</td>
-                      <td>{car.contract_dur}</td>
+                      <td>{car.license_plate || "No data"}</td>
+                      <td>{car.make || "No data"}</td>
+                      <td>{car.model || "No data"}</td>
+                      <td>{car.model_year || "No data"}</td>
+                      <td>{car.color || "No data"}</td>
+                      <td>{car.fuel_type || "No data"}</td>
+                      <td>{car.vin || "No data"}</td>
+                      <td>{car.reg_date || "No data"}</td>
+                      <td>{car.drivetrain || "No data"}</td>
+                      <td>{car.warranty ? new Date(car.warranty).toISOString().split("T")[0].replace(/-/g, ".") : "No data"}</td>
+                      <td>{car.company || "No data"}</td>
+                      <td>{car.contract || "No data"}</td>
+                      <td>{car.contract_dur || "No data"}</td>
                     </tr>
                   ))}
                 </tbody>
