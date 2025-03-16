@@ -3,11 +3,12 @@ import carService from "../services/car-service";
 
 const carController = {
     async getAllCars(req: Request, res: Response) {
+        console.log(req.query)
         try {
-            const vehicles = await carService.getAllCars();
-            res.json(vehicles);
+            const cars = await carService.getAllCars(req.query);
+            res.json(cars);
         } catch (error) {
-            res.status(500).json({ error: "Hiba történt az adatok lekérése közben." });
+            res.status(500).json({ error: "An error occurred while retrieving the data." });
         }
     }
 };
