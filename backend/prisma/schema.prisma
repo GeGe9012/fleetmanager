@@ -8,8 +8,8 @@ datasource db {
 }
 
 model Car {
-  id            String   @id @default(cuid())
-  license_plate String   @unique
+  id            String     @id @default(cuid())
+  license_plate String     @unique
   make          String
   model         String
   model_year    Int
@@ -18,14 +18,14 @@ model Car {
   vin           String
   reg_date      Int
   drivetrain    String
-  warranty      DateTime
-  created_at    DateTime @default(now())
-  modified_at   DateTime @updatedAt
+  warranty      String
+  created_at    DateTime   @default(now())
+  modified_at   DateTime   @updatedAt
   contracts     Contract[]
 }
 
 model Customer {
-  id                  String   @id @default(cuid())
+  id                  String     @id @default(cuid())
   first_name          String
   last_name           String
   phone_number        String
@@ -35,13 +35,13 @@ model Customer {
   customer_address_3  String
   customer_address_4  String
   customer_tax_number String
-  created_at          DateTime @default(now())
-  modified_at         DateTime @updatedAt
+  created_at          DateTime   @default(now())
+  modified_at         DateTime   @updatedAt
   contracts           Contract[]
 }
 
 model Company {
-  id                   String   @id @default(cuid())
+  id                   String     @id @default(cuid())
   company              String
   company_tax_number   String
   contact_phone_number String
@@ -50,8 +50,8 @@ model Company {
   company_address_2    String
   company_address_3    String
   company_address_4    String
-  created_at           DateTime @default(now())
-  modified_at          DateTime @updatedAt
+  created_at           DateTime   @default(now())
+  modified_at          DateTime   @updatedAt
   contracts            Contract[]
 }
 
@@ -65,7 +65,7 @@ model Contract {
   created_at   DateTime @default(now())
   modified_at  DateTime @updatedAt
 
-  company      Company   @relation(fields: [company_id], references: [id])
-  car          Car       @relation(fields: [car_id], references: [id])
-  customer     Customer  @relation(fields: [customer_id], references: [id])
+  company  Company  @relation(fields: [company_id], references: [id])
+  car      Car      @relation(fields: [car_id], references: [id])
+  customer Customer @relation(fields: [customer_id], references: [id])
 }
