@@ -7,6 +7,7 @@ import SearchBar from "./SearchBar";
 import { FaSort } from "react-icons/fa";
 import { tableHeadsCars, tableHeadsCustomers } from "../constants/tableheads";
 import { getAllCars } from "../services/carService";
+import { getAllCustomers } from "../services/customerService";
 
 interface Car {
   id: string;
@@ -29,11 +30,12 @@ interface Customer {
   last_name: string;
   phone_number: string;
   email: string;
-  address_1: string;
-  address_2: string;
-  address_3: string;
+  customer_address_1: string;
+  customer_address_2: string;
+  customer_address_3: string;
+  customer_address_4: string;
   contract: string;
-  tax_nubmer: string;
+  customer_tax_number: string;
   [key: string]: string;
 }
 
@@ -49,11 +51,12 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>("fleet");
   const [cars, setCars] = useState<Car[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [queryParams, setQueryParams] = useState<{
-    search: { [index: number]: string };
-    page: number;
-  } | null>(null);
+    search: { [key: string]: string };
+  }>({ search: {} });
+  const [searchTriggered, setSearchTriggered] = useState<boolean>(false);
+
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
     direction: "asc" | "desc";
@@ -61,23 +64,43 @@ export default function App() {
 
   // console.log(queryParams); ////////////////////////////////
 
-  // Backend hívás az autók adatainak lekérésére
   useEffect(() => {
+    if (!searchTriggered) return;
+  
+    const isSearchEmpty = Object.keys(queryParams.search).length === 0;
+  
+    setLoading(true);
     if (activeTab === "fleet") {
-      setLoading(true);
-      getAllCars()
-        .then((data) => {
-          setCars(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error(error);
-          setLoading(false);
-        });
+      if (isSearchEmpty) {
+        getAllCars()
+          .then(setCars)
+          .catch(console.error)
+          .finally(() => setLoading(false));
+      } else {
+        getAllCars(queryParams.search)
+          .then(setCars)
+          .catch(console.error)
+          .finally(() => setLoading(false));
+      }
+    } else if (activeTab === "customers") {
+      if (isSearchEmpty) {
+        getAllCustomers()
+          .then(setCustomers)
+          .catch(console.error)
+          .finally(() => setLoading(false));
+      } else {
+        getAllCustomers(queryParams.search)
+          .then(setCustomers)
+          .catch(console.error)
+          .finally(() => setLoading(false));
+      }
     }
-  }, [activeTab]);
+  }, [activeTab, queryParams, searchTriggered]);
+
   ////////////////////////////////////
-  console.log(cars)
+  // console.log(cars);
+  // console.log(customers);
+  // console.log(queryParams);
 
   const sortData = (
     data: Car[] | Customer[],
@@ -101,25 +124,25 @@ export default function App() {
 
   const columnKeyMap: { [key: string]: string } = {
     "License Plate": "license_plate",
-    "Make": "make",
-    "Model": "model",
+    Make: "make",
+    Model: "model",
     "Model Year": "model_year",
-    "Color": "color",
-    "Fuel": "fuel_type",
-    "VIN": "vin",
+    Color: "color",
+    Fuel: "fuel_type",
+    VIN: "vin",
     "Registration Date": "reg_date",
-    "Drivetrain": "drivetrain",
-    "Warranty": "warranty",
-    "Company": "company",
-    "Contract": "contract",
+    Drivetrain: "drivetrain",
+    Warranty: "warranty",
+    Company: "company",
+    Contract: "contract",
     "Contract duration": "contract_dur",
     "First Name": "first_name",
     "Last Name": "last_name",
     "Company Name": "company",
     "Phone Number": "phone_number",
     "E-mail": "email",
-    "Address": "address_1",
-    "Tax Number": "tax_nubmer",
+    Address: "customer_address_1",
+    "Tax Number": "customer_tax_number",
   };
 
   const handleSort = (column: string) => {
@@ -139,9 +162,9 @@ export default function App() {
     sortConfig.direction
   );
 
-  useEffect(() => {
-    setQueryParams(null);
-  }, [activeTab]);
+  // useEffect(() => {
+  //   setQueryParams(null);
+  // }, [activeTab]);
 
   return (
     <>
@@ -202,6 +225,7 @@ export default function App() {
                     SearchBarSum={13}
                     queryParams={queryParams}
                     setQueryParams={setQueryParams}
+                    setSearchTriggered={setSearchTriggered}
                   />
                 </thead>
                 <tbody style={{ padding: "2px", textAlign: "center" }}>
@@ -217,7 +241,14 @@ export default function App() {
                       <td>{car.vin || "No data"}</td>
                       <td>{car.reg_date || "No data"}</td>
                       <td>{car.drivetrain || "No data"}</td>
-                      <td>{car.warranty ? new Date(car.warranty).toISOString().split("T")[0].replace(/-/g, ".") : "No data"}</td>
+                      <td>
+                        {car.warranty
+                          ? new Date(car.warranty)
+                              .toISOString()
+                              .split("T")[0]
+                              .replace(/-/g, ".")
+                          : "No data"}
+                      </td>
                       <td>{car.company || "No data"}</td>
                       <td>{car.contract || "No data"}</td>
                       <td>{car.contract_dur || "No data"}</td>
@@ -251,6 +282,7 @@ export default function App() {
                     SearchBarSum={9}
                     queryParams={queryParams}
                     setQueryParams={setQueryParams}
+                    setSearchTriggered={setSearchTriggered}
                   />
                 </thead>
                 <tbody style={{ padding: "2px", textAlign: "center" }}>
@@ -263,13 +295,19 @@ export default function App() {
                       <td>{customer.phone_number}</td>
                       <td>{customer.email}</td>
                       <td>
-                        {String(customer.address_1) +
-                          String(customer.address_2) +
-                          String(customer.address_3)}
+                        <>
+                          {customer.customer_address_1}{" "}
+                          {customer.customer_address_2} <br />
+                        </>
+
+                        <>
+                          {customer.customer_address_3}{" "}
+                          {customer.customer_address_4}
+                        </>
                       </td>
                       <td>{customer.contract}</td>
                       <td>{customer.license_plate}</td>
-                      <td>{customer.tax_nubmer}</td>
+                      <td>{customer.customer_tax_number}</td>
                     </tr>
                   ))}
                 </tbody>
