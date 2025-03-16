@@ -3,18 +3,12 @@ import { FaSearch } from "react-icons/fa";
 
 interface SearchBarProps {
   SearchBarSum: number;
-  queryParams: { search: { [index: number]: string }; page: number } | null;
-  setQueryParams: (params: {
-    search: { [index: number]: string };
-    page: number;
-  }) => void;
+  queryParams: { search: { [key: string]: string } };
+  setQueryParams: (params: { search: { [key: string]: string } }) => void;
+  setSearchTriggered: (value: boolean) => void;
 }
 
-export default function SearchBar({
-  SearchBarSum,
-  queryParams,
-  setQueryParams,
-}: SearchBarProps) {
+export default function SearchBar({ SearchBarSum, queryParams, setQueryParams, setSearchTriggered }: SearchBarProps) {
   const thStyle: React.CSSProperties = {
     padding: 0,
     height: "2.5rem",
@@ -30,54 +24,61 @@ export default function SearchBar({
     fontSize: "inherit",
   };
 
-  const [searchValues, setSearchValues] = useState<string[]>(
-    Array(SearchBarSum).fill("")
+  // Oszlopokhoz kötött kulcsok
+  const columnKeyMapFleet: { [key: number]: string } = {
+    0: "license_plate",
+    1: "make",
+    2: "model",
+    3: "model_year",
+    4: "color",
+    5: "fuel_type",
+    6: "vin",
+    7: "reg_date",
+    8: "drivetrain",
+    9: "warranty",
+    10: "company",
+    11: "contract",
+    12: "contract_dur"
+  };
+
+  const columnKeyMapCustomers: { [key: string]: string } = {
+    1: "first_name",
+    2: "last_name",
+    3: "company",
+    4: "phone_number",
+    5: "email",
+    6: "customer_address_1",
+    7: "contract",
+    8: "license_plate",
+    9: "customer_tax_number",
+  };
+
+  const [searchValues, setSearchValues] = useState<{ [key: string]: string }>(
+    queryParams.search || {}
   );
 
-  const handleSearch = (value: string, index: number) => {
-    setQueryParams({
-      search: {
-        ...(queryParams?.search || {}), // Megőrizzük a korábbi értékeket
-        [index]: value, // Frissítjük az adott indexű mezőt
-      },
-      page: 1, // Oldalt mindig visszaállítjuk az elsőre
-    });
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const columnKey = columnKeyMapFleet[index];
+    if (!columnKey) return;
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
     const newValue = e.target.value;
 
-    // Frissítjük a searchValues állapotot
-    const newValues = [...searchValues];
-    newValues[index] = newValue;
-    setSearchValues(newValues);
-
-    // Lemásoljuk a queryParams.search objektumot
-    const updatedSearch = { ...(queryParams?.search || {}) };
-
-    if (newValue === "") {
-      // Ha az input üres lett, töröljük a megfelelő indexet az objektumból
-      delete updatedSearch[index];
-    } else {
-      // Egyébként frissítjük az értéket
-      updatedSearch[index] = newValue;
-    }
-
-    // Beállítjuk a frissített queryParams-t
-    setQueryParams({
-      search: updatedSearch,
-      page: 1, // Oldalt visszaállítjuk az elsőre
-    });
+    setSearchValues((prev) => ({
+      ...prev,
+      [columnKey]: newValue,
+    }));
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
-    if (e.key === "Enter") {
-      handleSearch(searchValues[index], index);
-    }
-  };
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  if (e.key === "Enter") {
+    const updatedSearchParams = Object.fromEntries(
+      Object.entries(searchValues).filter(([, value]) => value.trim() !== "")
+    );
+
+    setQueryParams({ search: updatedSearchParams });
+    setSearchTriggered(true);
+  }
+};
 
   return (
     <tr>
@@ -101,9 +102,9 @@ export default function SearchBar({
           <input
             type="text"
             style={inputStyle}
-            value={queryParams?.search[index + 1]}
-            onChange={(e) => handleChange(e, index + 1)}
-            onKeyDown={(e) => handleKeyDown(e, index + 1)}
+            value={searchValues[columnKeyMapFleet[index]] || ""}
+            onChange={(e) => handleChange(e, index)}
+            onKeyDown={(e) => handleKeyDown(e)}
           />
         </th>
       ))}
