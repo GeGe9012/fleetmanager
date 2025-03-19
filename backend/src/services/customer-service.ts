@@ -3,17 +3,31 @@ import HttpError from "../utils/http-error";
 import prisma from "../db/prisma";
 
 const customerService = {
-    async getAllCustomers() {
-        try {
-            const customers = await prisma.customer.findMany();
-            return customers;
-          } catch (err) {
-            throw new HttpError(
-              "Something went wrong",
-              HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
-            );
+  async getAllCustomers(filters: Record<string, any> = {}) {
+    try {
+      const whereClause: Record<string, any> = {};
+
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          if (value.includes("%")) {
+            whereClause[key] = {
+              contains: value.replace(/%/g, ""),
+              mode: "insensitive",
+            };
+          } else {
+            whereClause[key] = { startsWith: value, mode: "insensitive" };
           }
+        }
+      });
+      const customers = await prisma.customer.findMany({ where: whereClause });
+      return customers;
+    } catch (err) {
+      throw new HttpError(
+        "Something went wrong",
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+      );
     }
+  },
 };
 
 export default customerService;
