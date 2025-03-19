@@ -6,7 +6,6 @@ const customerService = {
   async getAllCustomers(filters: Record<string, any> = {}) {
     try {
       const whereClause: Record<string, any> = {};
-
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
           if (value.includes("%")) {

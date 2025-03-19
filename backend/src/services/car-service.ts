@@ -10,7 +10,6 @@ const carService = {
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
           if (["model_year", "reg_date"].includes(key)) {
-            // Ha a beírt érték szám, akkor intervallumos keresés
             const numValue = parseInt(value, 10);
             if (!isNaN(numValue)) {
               const min = numValue * Math.pow(10, 4 - value.length);

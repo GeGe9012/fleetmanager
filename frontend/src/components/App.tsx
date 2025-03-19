@@ -83,11 +83,6 @@ export default function App() {
     setQueryParams({ search: {}});
   }, [activeTab, queryParams, searchTriggered]);
 
-  ////////////////////////////////////
-  // console.log(cars);
-  // console.log(customers);
-  console.log(queryParams);
-
   const sortData = (
     data: Car[] | Customer[],
     key: string | null,
