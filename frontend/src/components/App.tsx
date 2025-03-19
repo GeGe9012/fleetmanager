@@ -53,53 +53,34 @@ export default function App() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [queryParams, setQueryParams] = useState<{
-    search: { [key: string]: string };
-  }>({ search: {} });
+    search: { [key: string]: string }
+  }>({ search: {}});
+  
   const [searchTriggered, setSearchTriggered] = useState<boolean>(false);
 
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
     direction: "asc" | "desc";
   }>({ key: null, direction: "asc" });
-
-  // console.log(queryParams); ////////////////////////////////
-
-  useEffect(() => {
-    setQueryParams({ search: {} });  // Reset query params
-    setSearchTriggered(false);       // Reset search trigger
-  }, [activeTab]);
-
+  
   useEffect(() => {
     if (!searchTriggered) return;
-  
     const isSearchEmpty = Object.keys(queryParams.search).length === 0;
-  
+    
     setLoading(true);
     if (activeTab === "fleet") {
-      if (isSearchEmpty) {
-        getAllCars()
-          .then(setCars)
-          .catch(console.error)
-          .finally(() => setLoading(false));
-      } else {
-        getAllCars(queryParams.search)
-          .then(setCars)
-          .catch(console.error)
-          .finally(() => setLoading(false));
-      }
+      getAllCars(isSearchEmpty ? undefined : queryParams.search)
+      .then(setCars)
+      .catch(console.error)
+      .finally(() => setLoading(false));
     } else if (activeTab === "customers") {
-      if (isSearchEmpty) {
-        getAllCustomers()
-          .then(setCustomers)
-          .catch(console.error)
-          .finally(() => setLoading(false));
-      } else {
-        getAllCustomers(queryParams.search)
-          .then(setCustomers)
-          .catch(console.error)
-          .finally(() => setLoading(false));
-      }
+      getAllCustomers(isSearchEmpty ? undefined : queryParams.search)
+      .then(setCustomers)
+      .catch(console.error)
+      .finally(() => setLoading(false));
     }
+    setSearchTriggered(false);
+    setQueryParams({ search: {}});
   }, [activeTab, queryParams, searchTriggered]);
 
   ////////////////////////////////////
@@ -175,7 +156,7 @@ export default function App() {
     5: "customer_address_1",
     6: "contract",
     7: "license_plate",
-    8: "customer_tax_number",
+    8: "customer_tax_number"
   };
 
   const handleSort = (column: string) => {
