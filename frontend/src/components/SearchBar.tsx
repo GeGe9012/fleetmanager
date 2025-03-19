@@ -4,12 +4,18 @@ import { FaSearch } from "react-icons/fa";
 interface SearchBarProps {
   SearchBarSum: number;
   queryParams: { search: { [key: string]: string } };
-  columnKeyForSearchBar: {[key: number]: string; };
-  setQueryParams: (params: { search: { [key: string]: string } }) => void;
+  columnKeyForSearchBar: { [key: number]: string };
+  setQueryParams: (params: { search: { [key: string]: string }}) => void;
   setSearchTriggered: (value: boolean) => void;
 }
 
-export default function SearchBar({ SearchBarSum, queryParams, columnKeyForSearchBar, setQueryParams, setSearchTriggered }: SearchBarProps) {
+export default function SearchBar({
+  SearchBarSum,
+  queryParams,
+  columnKeyForSearchBar,
+  setQueryParams,
+  setSearchTriggered,
+}: SearchBarProps) {
   const thStyle: React.CSSProperties = {
     padding: 0,
     height: "2.5rem",
@@ -25,12 +31,14 @@ export default function SearchBar({ SearchBarSum, queryParams, columnKeyForSearc
     fontSize: "inherit",
   };
 
-
   const [searchValues, setSearchValues] = useState<{ [key: string]: string }>(
     queryParams.search || {}
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const columnKey = columnKeyForSearchBar[index];
     if (!columnKey) return;
 
@@ -43,15 +51,16 @@ export default function SearchBar({ SearchBarSum, queryParams, columnKeyForSearc
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-  if (e.key === "Enter") {
-    const updatedSearchParams = Object.fromEntries(
-      Object.entries(searchValues).filter(([, value]) => value.trim() !== "")
-    );
-
-    setQueryParams({ search: updatedSearchParams });
-    setSearchTriggered(true);
-  }
-};
+    if (e.key === "Enter") {
+      const updatedSearchParams = Object.fromEntries(
+        Object.entries(searchValues).filter(([, value]) => value.trim() !== "")
+      );
+  
+      setQueryParams({ search: updatedSearchParams });
+      setSearchTriggered(true);
+    }
+  };
+  
 
   return (
     <tr>
