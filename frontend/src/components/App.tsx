@@ -65,6 +65,11 @@ export default function App() {
   // console.log(queryParams); ////////////////////////////////
 
   useEffect(() => {
+    setQueryParams({ search: {} });  // Reset query params
+    setSearchTriggered(false);       // Reset search trigger
+  }, [activeTab]);
+
+  useEffect(() => {
     if (!searchTriggered) return;
   
     const isSearchEmpty = Object.keys(queryParams.search).length === 0;
@@ -100,7 +105,7 @@ export default function App() {
   ////////////////////////////////////
   // console.log(cars);
   // console.log(customers);
-  // console.log(queryParams);
+  console.log(queryParams);
 
   const sortData = (
     data: Car[] | Customer[],
@@ -145,6 +150,34 @@ export default function App() {
     "Tax Number": "customer_tax_number",
   };
 
+  const columnKeyMapFleet: { [key: number]: string } = {
+    0: "license_plate",
+    1: "make",
+    2: "model",
+    3: "model_year",
+    4: "color",
+    5: "fuel_type",
+    6: "vin",
+    7: "reg_date",
+    8: "drivetrain",
+    9: "warranty",
+    10: "company",
+    11: "contract",
+    12: "contract_dur"
+  };
+
+  const columnKeyMapCustomers: { [key: string]: string } = {
+    0: "first_name",
+    1: "last_name",
+    2: "company",
+    3: "phone_number",
+    4: "email",
+    5: "customer_address_1",
+    6: "contract",
+    7: "license_plate",
+    8: "customer_tax_number",
+  };
+
   const handleSort = (column: string) => {
     const key = columnKeyMap[column];
     if (!key) return;
@@ -161,10 +194,6 @@ export default function App() {
     sortConfig.key,
     sortConfig.direction
   );
-
-  // useEffect(() => {
-  //   setQueryParams(null);
-  // }, [activeTab]);
 
   return (
     <>
@@ -224,6 +253,7 @@ export default function App() {
                   <SearchBar
                     SearchBarSum={13}
                     queryParams={queryParams}
+                    columnKeyForSearchBar={columnKeyMapFleet}
                     setQueryParams={setQueryParams}
                     setSearchTriggered={setSearchTriggered}
                   />
@@ -281,6 +311,7 @@ export default function App() {
                   <SearchBar
                     SearchBarSum={9}
                     queryParams={queryParams}
+                    columnKeyForSearchBar={columnKeyMapCustomers}
                     setQueryParams={setQueryParams}
                     setSearchTriggered={setSearchTriggered}
                   />
