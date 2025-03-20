@@ -14,18 +14,15 @@ const validationSchema = Yup.object().shape({
     .email("Invalid email format!")
     .matches(/^[^@]+@[^@]+\.[^@]+$/, "Please enter a valid email address!")
     .required("Please enter your email address!"),
-  birth_date: Yup.date()
-    .required("The birth date is required!")
-    .typeError("Please enter a valid date!"),
-  tax_number: Yup.string()
+  customer_tax_number: Yup.string()
     .matches(/^[0-9]+$/, "The tax number can only contain numbers!")
     .required("Please enter your tax number!"),
-  zipcode: Yup.string()
+  customer_address_2: Yup.string()
     .matches(/^[0-9]+$/, "The ZIP code can only contain numbers!")
     .required("Please enter your ZIP code!"),
-  country: Yup.string().required("Please select a country!"),
-  city: Yup.string().required("Please enter the city!"),
-  street_address: Yup.string().required(
+  customer_address_1: Yup.string().required("Please select a country!"),
+  customer_address_3: Yup.string().required("Please enter the city!"),
+  customer_address_4: Yup.string().required(
     "Please enter the street and house number!"
   ),
 });
