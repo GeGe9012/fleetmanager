@@ -25,7 +25,6 @@ export async function getAllCars(queryParams = {}) {
 }
 
 export async function createCar(car: Car) {
-  console.log(car)
   try {
     const response = await axios.post(
       `${BACKEND_URL}/api/cars`,

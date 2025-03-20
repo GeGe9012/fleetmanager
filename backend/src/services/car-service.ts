@@ -53,7 +53,6 @@ const carService = {
   },
 
   async createCar(newCarData: NewCarData) {
-    console.log(newCarData);
     try {
       const car = await prisma.car.create({
         data: newCarData,

@@ -6,7 +6,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import colors from "../constants/colors";
 import warrantyTerms from "../constants/warrantyTerms";
-import { useEffect } from "react";
 import { createCar } from "../services/carService";
 
 export default function NewCar() {
@@ -26,14 +25,11 @@ export default function NewCar() {
 
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      // console.log("Submitting values:", values); // Ellenőrizzük, hogy az értékek megjelennek-e
-
       try {
         const response = await createCar(values);
         if (!response) {
           console.error("An error occurred during data upload.");
         } else {
-          // console.log("Data uploaded successfully!"); //!!!!!!!!!!!!!
           resetForm();
         }
       } catch (error) {
@@ -41,14 +37,6 @@ export default function NewCar() {
       }
     },
   });
-
-  useEffect(() => {
-    console.log("Current form values:", formik.values);
-  }, [formik.values]);
-  useEffect(() => {
-    console.log("Formik Errors:", formik.errors);
-    console.log("Formik isValid:", formik.isValid);
-  }, [formik.errors, formik.isValid]);
 
   return (
     <Container className="mt-5">
