@@ -188,29 +188,30 @@ export default function NewCar() {
             </Form.Group>
 
             <Form.Group controlId="regDate" className="mt-3">
-  <Form.Label>Registration Date</Form.Label>
-  <DatePicker
-    selected={
-      formik.values.reg_date
-        ? new Date(formik.values.reg_date)
-        : null
-    }
-    onChange={(date) =>
-      formik.setFieldValue(
-        "reg_date",
-        date ? date.toISOString().split("T")[0].replace(/-/g, ".") : ""
-      )
-    }
-    dateFormat="yyyy-MM-dd"
-    className="form-control"
-  />
-  {formik.touched.reg_date && formik.errors.reg_date && (
-    <div className="text-danger">
-      {String(formik.errors.reg_date)}
-    </div>
-  )}
-</Form.Group>
-
+              <Form.Label>Registration Date</Form.Label>
+              <DatePicker
+                selected={
+                  formik.values.reg_date
+                    ? new Date(formik.values.reg_date)
+                    : null
+                }
+                onChange={(date) =>
+                  formik.setFieldValue(
+                    "reg_date",
+                    date
+                      ? date.toISOString().split("T")[0].replace(/-/g, ".")
+                      : ""
+                  )
+                }
+                dateFormat="yyyy-MM-dd"
+                className="form-control"
+              />
+              {formik.touched.reg_date && formik.errors.reg_date && (
+                <div className="text-danger">
+                  {String(formik.errors.reg_date)}
+                </div>
+              )}
+            </Form.Group>
 
             <Form.Group controlId="drivetrain" className="mt-3">
               <Form.Label>Drivetrain</Form.Label>
