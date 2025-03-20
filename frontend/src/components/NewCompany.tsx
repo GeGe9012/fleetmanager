@@ -1,31 +1,29 @@
 import { useFormik } from "formik";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import validationSchema from "../schema/newCompanySchema";
-import { createData } from "../services/createData";
 import countries from "../constants/countries";
+import { createCompany } from "../services/companyService";
 
 export default function NewCompany() {
   const formik = useFormik({
     initialValues: {
       company: "",
       company_tax_number: "",
-      phone_number: "",
+      contact_phone_number: "",
       reg_number: "",
-      zipcode: "",
-      country: "",
-      city: "",
-      street_address: "",
+      company_address_1: "",
+      company_address_2: "",
+      company_address_3: "",
+      company_address_4: "",
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      console.log("Submitting values:", values); // Ellenőrizzük, hogy az értékek megjelennek-e
-
+      console.log("Submitting values:", values);
       try {
-        const response = await createData(values);
+        const response = await createCompany(values);
         if (!response) {
           console.error("An error occurred during data upload.");
         } else {
-          console.log("Data uploaded successfully!");
           resetForm();
         }
       } catch (error) {
@@ -77,16 +75,17 @@ export default function NewCompany() {
               <Form.Label>Contact Phone Number</Form.Label>
               <Form.Control
                 type="text"
-                name="phone_number"
-                value={formik.values.phone_number}
+                name="contact_phone_number"
+                value={formik.values.contact_phone_number}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 isInvalid={
-                  formik.touched.phone_number && !!formik.errors.phone_number
+                  formik.touched.contact_phone_number &&
+                  !!formik.errors.contact_phone_number
                 }
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.phone_number}
+                {formik.errors.contact_phone_number}
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="phoneNumber" className="mt-3">
@@ -111,14 +110,17 @@ export default function NewCompany() {
               <Form.Label>Zipcode</Form.Label>
               <Form.Control
                 type="text"
-                name="zipcode"
-                value={formik.values.zipcode}
+                name="company_address_2"
+                value={formik.values.company_address_2}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.zipcode && !!formik.errors.zipcode}
+                isInvalid={
+                  formik.touched.company_address_2 &&
+                  !!formik.errors.company_address_2
+                }
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.zipcode}
+                {formik.errors.company_address_2}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -126,11 +128,14 @@ export default function NewCompany() {
               <Form.Label>Country</Form.Label>
               <Form.Select
                 as="select"
-                name="country"
-                value={formik.values.country}
+                name="company_address_1"
+                value={formik.values.company_address_1}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.country && !!formik.errors.country}
+                isInvalid={
+                  formik.touched.company_address_1 &&
+                  !!formik.errors.company_address_1
+                }
               >
                 <option value="">Select a country...</option>
                 {countries.map((country, index) => (
@@ -140,7 +145,7 @@ export default function NewCompany() {
                 ))}
               </Form.Select>
               <Form.Control.Feedback type="invalid">
-                {formik.errors.country}
+                {formik.errors.company_address_1}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -148,14 +153,17 @@ export default function NewCompany() {
               <Form.Label>City</Form.Label>
               <Form.Control
                 type="text"
-                name="city"
-                value={formik.values.city}
+                name="company_address_3"
+                value={formik.values.company_address_3}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.city && !!formik.errors.city}
+                isInvalid={
+                  formik.touched.company_address_3 &&
+                  !!formik.errors.company_address_3
+                }
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.city}
+                {formik.errors.company_address_3}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -163,17 +171,17 @@ export default function NewCompany() {
               <Form.Label>Street & House Number</Form.Label>
               <Form.Control
                 type="text"
-                name="street_address"
-                value={formik.values.street_address}
+                name="company_address_4"
+                value={formik.values.company_address_4}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 isInvalid={
-                  formik.touched.street_address &&
-                  !!formik.errors.street_address
+                  formik.touched.company_address_4 &&
+                  !!formik.errors.company_address_4
                 }
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.street_address}
+                {formik.errors.company_address_4}
               </Form.Control.Feedback>
             </Form.Group>
 
