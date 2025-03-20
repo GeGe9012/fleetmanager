@@ -1,9 +1,8 @@
 import { useFormik } from "formik";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import validationSchema from "../schema/newCustomerSchema";
-import { createData } from "../services/createData";
-import DatePicker from "react-datepicker";
 import countries from "../constants/countries";
+import { createCustomer } from "../services/customerService";
 
 export default function NewCustomer() {
   const formik = useFormik({
@@ -12,23 +11,20 @@ export default function NewCustomer() {
       last_name: "",
       phone_number: "",
       email: "",
-      birth_date: null,
-      tax_number: "",
-      zipcode: "",
-      country: "",
-      city: "",
-      street_address: "",
+      customer_address_1: "",
+      customer_address_2: "",
+      customer_address_3: "",
+      customer_address_4: "",
+      customer_tax_number: "",
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       console.log("Submitting values:", values);
-
       try {
-        const response = await createData(values);
+        const response = await createCustomer(values);
         if (!response) {
           console.error("An error occurred during data upload.");
         } else {
-          console.log("Data uploaded successfully!");
           resetForm();
         }
       } catch (error) {
@@ -51,7 +47,9 @@ export default function NewCustomer() {
                 value={formik.values.first_name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.first_name && !!formik.errors.first_name}
+                isInvalid={
+                  formik.touched.first_name && !!formik.errors.first_name
+                }
               />
               <Form.Control.Feedback type="invalid">
                 {formik.errors.first_name}
@@ -66,7 +64,9 @@ export default function NewCustomer() {
                 value={formik.values.last_name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.last_name && !!formik.errors.last_name}
+                isInvalid={
+                  formik.touched.last_name && !!formik.errors.last_name
+                }
               />
               <Form.Control.Feedback type="invalid">
                 {formik.errors.last_name}
@@ -81,7 +81,9 @@ export default function NewCustomer() {
                 value={formik.values.phone_number}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.phone_number && !!formik.errors.phone_number}
+                isInvalid={
+                  formik.touched.phone_number && !!formik.errors.phone_number
+                }
               />
               <Form.Control.Feedback type="invalid">
                 {formik.errors.phone_number}
@@ -103,31 +105,21 @@ export default function NewCustomer() {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="birthDate" className="mt-3">
-              <Form.Label>Birth Date</Form.Label>
-              <DatePicker
-                selected={formik.values.birth_date}
-                onChange={(date) => formik.setFieldValue("birth_date", date)}
-                dateFormat="yyyy-MM-dd"
-                className="form-control"
-              />
-              {formik.touched.birth_date && formik.errors.birth_date && (
-                <div className="text-danger">{String(formik.errors.birth_date)}</div>
-              )}
-            </Form.Group>
-
             <Form.Group controlId="taxNumber" className="mt-3">
               <Form.Label>Tax Number</Form.Label>
               <Form.Control
                 type="text"
-                name="tax_number"
-                value={formik.values.tax_number}
+                name="customer_tax_number"
+                value={formik.values.customer_tax_number}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.tax_number && !!formik.errors.tax_number}
+                isInvalid={
+                  formik.touched.customer_tax_number &&
+                  !!formik.errors.customer_tax_number
+                }
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.tax_number}
+                {formik.errors.customer_tax_number}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -137,14 +129,17 @@ export default function NewCustomer() {
               <Form.Label>Zipcode</Form.Label>
               <Form.Control
                 type="text"
-                name="zipcode"
-                value={formik.values.zipcode}
+                name="customer_address_2"
+                value={formik.values.customer_address_2}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.zipcode && !!formik.errors.zipcode}
+                isInvalid={
+                  formik.touched.customer_address_2 &&
+                  !!formik.errors.customer_address_2
+                }
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.zipcode}
+                {formik.errors.customer_address_2}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -152,11 +147,14 @@ export default function NewCustomer() {
               <Form.Label>Country</Form.Label>
               <Form.Select
                 as="select"
-                name="country"
-                value={formik.values.country}
+                name="customer_address_1"
+                value={formik.values.customer_address_1}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.country && !!formik.errors.country}
+                isInvalid={
+                  formik.touched.customer_address_1 &&
+                  !!formik.errors.customer_address_1
+                }
               >
                 <option value="">Select a country...</option>
                 {countries.map((country, index) => (
@@ -166,7 +164,7 @@ export default function NewCustomer() {
                 ))}
               </Form.Select>
               <Form.Control.Feedback type="invalid">
-                {formik.errors.country}
+                {formik.errors.customer_address_1}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -174,14 +172,17 @@ export default function NewCustomer() {
               <Form.Label>City</Form.Label>
               <Form.Control
                 type="text"
-                name="city"
-                value={formik.values.city}
+                name="customer_address_3"
+                value={formik.values.customer_address_3}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.city && !!formik.errors.city}
+                isInvalid={
+                  formik.touched.customer_address_3 &&
+                  !!formik.errors.customer_address_3
+                }
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.city}
+                {formik.errors.customer_address_3}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -189,19 +190,22 @@ export default function NewCustomer() {
               <Form.Label>Street & House Number</Form.Label>
               <Form.Control
                 type="text"
-                name="street_address"
-                value={formik.values.street_address}
+                name="customer_address_4"
+                value={formik.values.customer_address_4}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isInvalid={formik.touched.street_address && !!formik.errors.street_address}
+                isInvalid={
+                  formik.touched.customer_address_4 &&
+                  !!formik.errors.customer_address_4
+                }
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.street_address}
+                {formik.errors.customer_address_4}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Button variant="primary" type="submit" className="mt-4 w-100">
-            Add new customer
+              Add new customer
             </Button>
           </Form>
         </Col>
