@@ -13,6 +13,16 @@ const customerController = {
         .json({ error: "An error occurred while retrieving the data." });
     }
   },
+  async createCustomer(req: Request, res: Response) {
+    try {
+      const newCustomer = await customerService.createCustomer(req.body);
+      res.status(HTTP_STATUS_CODES.CREATED).json(newCustomer);
+    } catch (err) {
+      res
+        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+        .json({ error: "An error occurred while creating data." });
+    }
+  },
 };
 
 export default customerController;
