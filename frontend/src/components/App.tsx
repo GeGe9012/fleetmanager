@@ -5,9 +5,14 @@ import { useState, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import { FaSort } from "react-icons/fa";
-import { tableHeadsCars, tableHeadsCustomers, tableHeadsCompanies } from "../constants/tableheads";
+import {
+  tableHeadsCars,
+  tableHeadsCustomers,
+  tableHeadsCompanies,
+} from "../constants/tableheads";
 import { getAllCars } from "../services/carService";
 import { getAllCustomers } from "../services/customerService";
+import { getAllCompanies } from "../services/companyService";
 
 interface Car {
   id: string;
@@ -39,6 +44,19 @@ interface Customer {
   [key: string]: string;
 }
 
+interface Company {
+  id: string;
+  company: string;
+  company_tax_number: string;
+  contact_phone_number: string;
+  reg_number: string;
+  company_address_1: string;
+  company_address_2: string;
+  company_address_3: string;
+  company_address_4: string;
+  [key: string]: string;
+}
+
 export default function App() {
   const thStyle: object = {
     overflow: "hidden",
@@ -51,6 +69,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>("fleet");
   const [cars, setCars] = useState<Car[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [queryParams, setQueryParams] = useState<{
     search: { [key: string]: string };
@@ -78,17 +97,23 @@ export default function App() {
         .then(setCustomers)
         .catch(console.error)
         .finally(() => setLoading(false));
+    } else if (activeTab === "companies") {
+      getAllCompanies(isSearchEmpty ? undefined : queryParams.search)
+        .then(setCompanies)
+        .catch(console.error)
+        .finally(() => setLoading(false));
     }
     setSearchTriggered(false);
     setQueryParams({ search: {} });
   }, [activeTab, queryParams, searchTriggered]);
 
-  const sortData = (
-    data: Car[] | Customer[],
-    key: string | null,
+  const sortData = <T extends Record<string, string | number | boolean>>(
+    data: T[],
+    key: keyof T | null,
     direction: "asc" | "desc"
   ) => {
     if (!key) return data;
+
     return [...data].sort((a, b) => {
       const valA = a[key];
       const valB = b[key];
@@ -124,6 +149,10 @@ export default function App() {
     "E-mail": "email",
     Address: "customer_address_1",
     "Tax Number": "customer_tax_number",
+    "Company Tax Number": "company_tax_number",
+    "Company Address": "company_address_1",
+    "Company Phone Number": "contact_phone_number",
+    "Registration Number": "reg_number",
   };
 
   const columnKeyMapFleet: { [key: number]: string } = {
@@ -172,15 +201,19 @@ export default function App() {
     }));
   };
 
-  const sortedCars = sortData(cars, sortConfig.key, sortConfig.direction);
-  const sortedCustomers = sortData(
-    customers,
-    sortConfig.key,
+  const sortedCars = sortData<Car>(
+    cars,
+    sortConfig.key as keyof Car,
     sortConfig.direction
   );
-  const sortedCompanies = sortData(
+  const sortedCustomers = sortData<Customer>(
     customers,
-    sortConfig.key,
+    sortConfig.key as keyof Customer,
+    sortConfig.direction
+  );
+  const sortedCompanies = sortData<Company>(
+    companies,
+    sortConfig.key as keyof Company,
     sortConfig.direction
   );
 
@@ -251,19 +284,19 @@ export default function App() {
                   {sortedCars.map((car, index) => (
                     <tr key={car.id}>
                       <td>{index + 1}</td>
-                      <td>{car.license_plate || "No data"}</td>
-                      <td>{car.make || "No data"}</td>
-                      <td>{car.model || "No data"}</td>
-                      <td>{car.model_year || "No data"}</td>
-                      <td>{car.color || "No data"}</td>
-                      <td>{car.fuel_type || "No data"}</td>
-                      <td>{car.vin || "No data"}</td>
-                      <td>{car.reg_date || "No data"}</td>
-                      <td>{car.drivetrain || "No data"}</td>
-                      <td>{car.warranty || "No data"}</td>
-                      <td>{car.company || "No data"}</td>
-                      <td>{car.contract || "No data"}</td>
-                      <td>{car.contract_dur || "No data"}</td>
+                      <td>{car.license_plate}</td>
+                      <td>{car.make}</td>
+                      <td>{car.model}</td>
+                      <td>{car.model_year}</td>
+                      <td>{car.color}</td>
+                      <td>{car.fuel_type}</td>
+                      <td>{car.vin}</td>
+                      <td>{car.reg_date}</td>
+                      <td>{car.drivetrain}</td>
+                      <td>{car.warranty}</td>
+                      <td>{car.company}</td>
+                      <td>{car.contract}</td>
+                      <td>{car.contract_dur}</td>
                     </tr>
                   ))}
                 </tbody>
