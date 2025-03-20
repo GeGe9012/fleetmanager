@@ -1,13 +1,13 @@
 import { useFormik } from "formik";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import validationSchema from "../schema/newCarSchema";
-import { createData } from "../services/createData";
 import carMakes from "../constants/carMakes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import colors from "../constants/colors";
 import warrantyTerms from "../constants/warrantyTerms";
 import { useEffect } from "react";
+import { createCar } from "../services/carService";
 
 export default function NewCar() {
   const formik = useFormik({
@@ -15,25 +15,25 @@ export default function NewCar() {
       license_plate: "",
       make: "",
       model: "",
-      model_year: null,
+      model_year: 0,
       color: "",
       fuel_type: "",
       vin: "",
-      reg_date: null,
+      reg_date: 0,
       drivetrain: "",
       warranty: "",
     },
 
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      console.log("Submitting values:", values); // Ellenőrizzük, hogy az értékek megjelennek-e
+      // console.log("Submitting values:", values); // Ellenőrizzük, hogy az értékek megjelennek-e
 
       try {
-        const response = await createData(values);
+        const response = await createCar(values);
         if (!response) {
           console.error("An error occurred during data upload.");
         } else {
-          console.log("Data uploaded successfully!"); //!!!!!!!!!!!!!
+          // console.log("Data uploaded successfully!"); //!!!!!!!!!!!!!
           resetForm();
         }
       } catch (error) {
@@ -110,10 +110,19 @@ export default function NewCar() {
             </Form.Group>
 
             <Form.Group controlId="modelYear" className="mt-3">
-              <Form.Label>Modell Year</Form.Label>
+              <Form.Label>Model Year</Form.Label>
               <DatePicker
-                selected={formik.values.model_year}
-                onChange={(date) => formik.setFieldValue("model_year", date)}
+                selected={
+                  formik.values.model_year
+                    ? new Date(formik.values.model_year, 0, 1)
+                    : null
+                }
+                onChange={(date) =>
+                  formik.setFieldValue(
+                    "model_year",
+                    date ? date.getFullYear() : 0
+                  )
+                }
                 showYearPicker
                 dateFormat="yyyy"
                 yearDropdownItemNumber={100}
@@ -191,19 +200,29 @@ export default function NewCar() {
             </Form.Group>
 
             <Form.Group controlId="regDate" className="mt-3">
-              <Form.Label>Registration Date</Form.Label>
-              <DatePicker
-                selected={formik.values.reg_date}
-                onChange={(date) => formik.setFieldValue("reg_date", date)}
-                dateFormat="yyyy-MM-dd"
-                className="form-control"
-              />
-              {formik.touched.reg_date && formik.errors.reg_date && (
-                <div className="text-danger">
-                  {String(formik.errors.reg_date)}
-                </div>
-              )}
-            </Form.Group>
+  <Form.Label>Registration Date</Form.Label>
+  <DatePicker
+    selected={
+      formik.values.reg_date
+        ? new Date(formik.values.reg_date)
+        : null
+    }
+    onChange={(date) =>
+      formik.setFieldValue(
+        "reg_date",
+        date ? date.toISOString().split("T")[0].replace(/-/g, ".") : ""
+      )
+    }
+    dateFormat="yyyy-MM-dd"
+    className="form-control"
+  />
+  {formik.touched.reg_date && formik.errors.reg_date && (
+    <div className="text-danger">
+      {String(formik.errors.reg_date)}
+    </div>
+  )}
+</Form.Group>
+
 
             <Form.Group controlId="drivetrain" className="mt-3">
               <Form.Label>Drivetrain</Form.Label>
