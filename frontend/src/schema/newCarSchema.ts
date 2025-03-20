@@ -10,9 +10,9 @@ const validationSchema = Yup.object().shape({
   color: Yup.string().required("Please select a car color!"),
   fuel_type: Yup.string().required("Please select a fuel type!"),
   vin: Yup.string().required("Please enter the VIN!"),
-  reg_date: Yup.date()
-    .required("The registration date is required!")
-    .typeError("Please enter a valid date!"),
+  // reg_date: Yup.date()
+  //   .required("The registration date is required!")
+  //   .typeError("Please enter a valid date!"),
   drivetrain: Yup.string().required("Please select a drivetrain type!"),
   warranty: Yup.string().required("Please select the warranty details!"),
 });
