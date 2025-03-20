@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Car" ALTER COLUMN "reg_date" SET DATA TYPE TEXT,
+ALTER COLUMN "warranty" SET DATA TYPE TEXT;
