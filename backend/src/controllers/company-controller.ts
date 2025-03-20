@@ -5,8 +5,8 @@ import companyService from "../services/company-service";
 const companyController = {
   async getAllCompanies(req: Request, res: Response) {
     try {
-      const customers = await companyService.getAllCompanies(req.query);
-      res.json(customers);
+      const companies = await companyService.getAllCompanies(req.query);
+      res.json(companies);
     } catch (error) {
       res
         .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
