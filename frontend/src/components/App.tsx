@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import { FaSort } from "react-icons/fa";
-import { tableHeadsCars, tableHeadsCustomers } from "../constants/tableheads";
+import { tableHeadsCars, tableHeadsCustomers, tableHeadsCompanies } from "../constants/tableheads";
 import { getAllCars } from "../services/carService";
 import { getAllCustomers } from "../services/customerService";
 
@@ -53,34 +53,34 @@ export default function App() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [queryParams, setQueryParams] = useState<{
-    search: { [key: string]: string }
-  }>({ search: {}});
-  
+    search: { [key: string]: string };
+  }>({ search: {} });
+
   const [searchTriggered, setSearchTriggered] = useState<boolean>(false);
 
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
     direction: "asc" | "desc";
   }>({ key: null, direction: "asc" });
-  
+
   useEffect(() => {
     if (!searchTriggered) return;
     const isSearchEmpty = Object.keys(queryParams.search).length === 0;
-    
+
     setLoading(true);
     if (activeTab === "fleet") {
       getAllCars(isSearchEmpty ? undefined : queryParams.search)
-      .then(setCars)
-      .catch(console.error)
-      .finally(() => setLoading(false));
+        .then(setCars)
+        .catch(console.error)
+        .finally(() => setLoading(false));
     } else if (activeTab === "customers") {
       getAllCustomers(isSearchEmpty ? undefined : queryParams.search)
-      .then(setCustomers)
-      .catch(console.error)
-      .finally(() => setLoading(false));
+        .then(setCustomers)
+        .catch(console.error)
+        .finally(() => setLoading(false));
     }
     setSearchTriggered(false);
-    setQueryParams({ search: {}});
+    setQueryParams({ search: {} });
   }, [activeTab, queryParams, searchTriggered]);
 
   const sortData = (
@@ -139,7 +139,7 @@ export default function App() {
     9: "warranty",
     10: "company",
     11: "contract",
-    12: "contract_dur"
+    12: "contract_dur",
   };
 
   const columnKeyMapCustomers: { [key: string]: string } = {
@@ -151,7 +151,15 @@ export default function App() {
     5: "customer_address_1",
     6: "contract",
     7: "license_plate",
-    8: "customer_tax_number"
+    8: "customer_tax_number",
+  };
+
+  const columnKeyMapCompanies: { [key: string]: string } = {
+    0: "company",
+    1: "company_tax_number",
+    2: "contact_phone_number",
+    3: "reg_number",
+    4: "company_address_1",
   };
 
   const handleSort = (column: string) => {
@@ -166,6 +174,11 @@ export default function App() {
 
   const sortedCars = sortData(cars, sortConfig.key, sortConfig.direction);
   const sortedCustomers = sortData(
+    customers,
+    sortConfig.key,
+    sortConfig.direction
+  );
+  const sortedCompanies = sortData(
     customers,
     sortConfig.key,
     sortConfig.direction
@@ -247,14 +260,7 @@ export default function App() {
                       <td>{car.vin || "No data"}</td>
                       <td>{car.reg_date || "No data"}</td>
                       <td>{car.drivetrain || "No data"}</td>
-                      <td>
-                        {car.warranty
-                          ? new Date(car.warranty)
-                              .toISOString()
-                              .split("T")[0]
-                              .replace(/-/g, ".")
-                          : "No data"}
-                      </td>
+                      <td>{car.warranty || "No data"}</td>
                       <td>{car.company || "No data"}</td>
                       <td>{car.contract || "No data"}</td>
                       <td>{car.contract_dur || "No data"}</td>
@@ -315,6 +321,58 @@ export default function App() {
                       <td>{customer.contract}</td>
                       <td>{customer.license_plate}</td>
                       <td>{customer.customer_tax_number}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </ResizableTable>
+            </Tab>
+            <Tab eventKey="companies" title="Companies">
+              <ResizableTable
+                resizable={true}
+                resizeOptions={{}}
+                activeTab={activeTab}
+              >
+                <thead>
+                  <tr>
+                    <th style={thStyle}>#</th>
+                    {tableHeadsCompanies.map((column) => (
+                      <th
+                        key={column}
+                        style={{ ...thStyle, cursor: "pointer" }}
+                        onClick={() => handleSort(column)}
+                      >
+                        <span>{column}</span>
+                        <FaSort />
+                      </th>
+                    ))}
+                  </tr>
+                  <SearchBar
+                    SearchBarSum={5}
+                    queryParams={queryParams}
+                    columnKeyForSearchBar={columnKeyMapCompanies}
+                    setQueryParams={setQueryParams}
+                    setSearchTriggered={setSearchTriggered}
+                  />
+                </thead>
+                <tbody style={{ padding: "2px", textAlign: "center" }}>
+                  {sortedCompanies.map((company, index) => (
+                    <tr key={company.id}>
+                      <td>{index + 1}</td>
+                      <td>{company.company}</td>
+                      <td>{company.company_tax_number}</td>
+                      <td>{company.contact_phone_number}</td>
+                      <td>{company.reg_number}</td>
+                      <td>
+                        <>
+                          {company.company_address_1}{" "}
+                          {company.company_address_2} <br />
+                        </>
+
+                        <>
+                          {company.company_address_3}{" "}
+                          {company.company_address_4}
+                        </>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
