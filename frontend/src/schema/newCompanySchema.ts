@@ -7,18 +7,18 @@ const validationSchema = Yup.object().shape({
   company_tax_number: Yup.string()
     .required("Please enter the company tax number!")
     .matches(/^[0-9]+$/, "The tax number can only contain numbers!"),
-  phone_number: Yup.string()
+  contact_phone_number: Yup.string()
     .matches(/^[0-9]+$/, "The contact phone number can only contain numbers!")
     .required("The company contact phone number is required!"),
   reg_number: Yup.string()
     .required("Please enter the company registration number!")
     .matches(/^[0-9]+$/, "The registration number can only contain numbers!"),
-  zipcode: Yup.string()
+  company_address_2: Yup.string()
     .matches(/^[0-9]+$/, "The ZIP code can only contain numbers!")
     .required("Please enter the company ZIP code!"),
-  country: Yup.string().required("Please select a country!"),
-  city: Yup.string().required("Please enter the city!"),
-  street_address: Yup.string().required(
+  company_address_1: Yup.string().required("Please select a country!"),
+  company_address_3: Yup.string().required("Please enter the city!"),
+  company_address_4: Yup.string().required(
     "Please enter the street and house number!"
   ),
 });
