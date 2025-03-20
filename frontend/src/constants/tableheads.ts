@@ -26,3 +26,11 @@ export const tableHeadsCustomers: string[] = [
   "Tax Number",
 ];
 
+export const tableHeadsCompanies: string[] = [
+  "Company",
+  "Tax Number",
+  "Phone Number",
+  "Registration Number",
+  "Address",
+];
+
