@@ -31,7 +31,10 @@ const carService = {
             }
           } else {
             if (value.includes("%")) {
-              whereClause[key] = { contains: value.replace(/%/g, ""), mode: "insensitive" };
+              whereClause[key] = {
+                contains: value.replace(/%/g, ""),
+                mode: "insensitive",
+              };
             } else {
               whereClause[key] = { startsWith: value, mode: "insensitive" };
             }
@@ -42,26 +45,28 @@ const carService = {
       const cars = await prisma.car.findMany({ where: whereClause });
       return cars;
     } catch (err) {
-      throw new HttpError("Something went wrong", HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
+      throw new HttpError(
+        "Something went wrong",
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+      );
     }
   },
 
-  async createCar(newCarData:NewCarData) {
-    console.log(newCarData)
-      try {
-        const car = await prisma.car.create({
-          data: newCarData,
-        });
-        return car;
-      } catch (err: any) {
-        console.error("Prisma Error:", err);
-        throw new HttpError(
-          err.message || "Car could not be created.",
-          HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
-        );
-      }
-    },
+  async createCar(newCarData: NewCarData) {
+    console.log(newCarData);
+    try {
+      const car = await prisma.car.create({
+        data: newCarData,
+      });
+      return car;
+    } catch (err: any) {
+      console.error("Prisma Error:", err);
+      throw new HttpError(
+        err.message || "Car could not be created.",
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
 };
 
 export default carService;
-
