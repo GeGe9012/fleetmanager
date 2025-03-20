@@ -15,8 +15,8 @@ const carController = {
   },
   async createCar(req: Request, res: Response) {
     try {
-      const newProduct = await carService.createCar(req.body);
-      res.status(HTTP_STATUS_CODES.CREATED).json(newProduct);
+      const newCar = await carService.createCar(req.body);
+      res.status(HTTP_STATUS_CODES.CREATED).json(newCar);
     } catch (err) {
       res
         .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
