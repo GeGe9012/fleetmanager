@@ -2,6 +2,19 @@ import { HTTP_STATUS_CODES } from "../constants/http-status-codes";
 import HttpError from "../utils/http-error";
 import prisma from "../db/prisma";
 
+interface NewCarData {
+  license_plate: string;
+  make: string;
+  model: string;
+  model_year: number;
+  color: string;
+  fuel_type: string;
+  vin: string;
+  reg_date: string;
+  drivetrain: string;
+  warranty: string;
+}
+
 const carService = {
   async getAllCars(filters: Record<string, any> = {}) {
     try {
@@ -31,7 +44,23 @@ const carService = {
     } catch (err) {
       throw new HttpError("Something went wrong", HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
     }
-  }
+  },
+
+  async createCar(newCarData:NewCarData) {
+    console.log(newCarData)
+      try {
+        const car = await prisma.car.create({
+          data: newCarData,
+        });
+        return car;
+      } catch (err: any) {
+        console.error("Prisma Error:", err);
+        throw new HttpError(
+          err.message || "Car could not be created.",
+          HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+        );
+      }
+    },
 };
 
 export default carService;
