@@ -52,6 +52,20 @@ const companyService = {
       );
     }
   },
+
+  async deleteCompany(companyId: string) {
+    try {
+      const deletedCompany = await prisma.company.delete({
+        where: { id: companyId },
+      });
+      return deletedCompany;
+    } catch (err) {
+      throw new HttpError(
+        "Company could not be deleted.",
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
 };
 
 export default companyService;
