@@ -1,16 +1,6 @@
 import axios from "axios";
 import { BACKEND_URL } from "../constants/backend";
-
-interface Company {
-  company: string;
-  company_tax_number: string;
-  contact_phone_number: string;
-  reg_number: string;
-  company_address_1: string;
-  company_address_2: string;
-  company_address_3: string;
-  company_address_4: string;
-}
+import { Company } from "../interfaces/serviceInterfaces";
 
 export async function getAllCompanies(queryParams = {}) {
   try {
@@ -26,12 +16,9 @@ export async function getAllCompanies(queryParams = {}) {
 
 export async function createCompany(company: Company) {
   try {
-    const response = await axios.post(
-      `${BACKEND_URL}/api/companies`,
-      {
-        ...company,
-      }
-    );
+    const response = await axios.post(`${BACKEND_URL}/api/companies`, {
+      ...company,
+    });
     return response.data;
   } catch (error) {
     console.error("An error occurred while creating company:", error);

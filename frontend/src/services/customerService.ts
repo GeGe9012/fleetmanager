@@ -1,21 +1,12 @@
 import axios from "axios";
 import { BACKEND_URL } from "../constants/backend";
-
-interface Customer {
-  first_name: string;
-  last_name: string;
-  phone_number: string;
-  email: string;
-  customer_address_1: string;
-  customer_address_2: string;
-  customer_address_3: string;
-  customer_address_4: string;
-  customer_tax_number: string;
-}
+import { Customer } from "../interfaces/serviceInterfaces";
 
 export async function getAllCustomers(queryParams = {}) {
   try {
-    const response = await axios.get(`${BACKEND_URL}/api/customers`, { params: queryParams });
+    const response = await axios.get(`${BACKEND_URL}/api/customers`, {
+      params: queryParams,
+    });
     return response.data;
   } catch (error) {
     console.error("An error occurred while fetching customers:", error);
@@ -25,12 +16,9 @@ export async function getAllCustomers(queryParams = {}) {
 
 export async function createCustomer(customer: Customer) {
   try {
-    const response = await axios.post(
-      `${BACKEND_URL}/api/customers`,
-      {
-        ...customer,
-      }
-    );
+    const response = await axios.post(`${BACKEND_URL}/api/customers`, {
+      ...customer,
+    });
     return response.data;
   } catch (error) {
     console.error("An error occurred while creating customer:", error);

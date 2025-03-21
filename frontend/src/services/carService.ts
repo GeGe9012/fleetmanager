@@ -1,18 +1,6 @@
 import axios from "axios";
 import { BACKEND_URL } from "../constants/backend";
-
-interface Car {
-  license_plate: string;
-  make: string;
-  model: string;
-  model_year: number;
-  color: string;
-  fuel_type: string;
-  vin: string;
-  reg_date: number;
-  drivetrain: string;
-  warranty: string;
-}
+import { Car } from "../interfaces/serviceInterfaces";
 
 export async function getAllCars(queryParams = {}) {
   try {
