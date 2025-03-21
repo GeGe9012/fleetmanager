@@ -1,5 +1,4 @@
 import { Outlet, useLocation } from "react-router-dom";
-
 import { useEffect } from "react";
 import Header from "../components/Header";
 import { Stack } from "react-bootstrap";
