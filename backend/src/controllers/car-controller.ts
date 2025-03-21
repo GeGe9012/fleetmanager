@@ -23,6 +23,19 @@ const carController = {
         .json({ error: "An error occurred while creating data." });
     }
   },
+  async deleteCar(req: Request, res: Response): Promise<void>  {
+    try {
+      const { carId } = req.params;
+  
+      const deletedCar = await carService.deleteCar(carId);
+      res.status(HTTP_STATUS_CODES.OK).json(deletedCar);
+    } catch (err) {
+      res
+        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+        .json({ error: "An error occurred while deleting data." });
+    }
+  }
+  
 };
 
 export default carController;
