@@ -23,6 +23,19 @@ const companyController = {
         .json({ error: "An error occurred while creating data." });
     }
   },
+
+  async deleteCompany(req: Request, res: Response): Promise<void>  {
+    try {
+      const { companyId } = req.params;
+  
+      const deletedCompany = await companyService.deleteCompany(companyId);
+      res.status(HTTP_STATUS_CODES.OK).json(deletedCompany);
+    } catch (err) {
+      res
+        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+        .json({ error: "An error occurred while deleting data." });
+    }
+  }
 };
 
 export default companyController;
