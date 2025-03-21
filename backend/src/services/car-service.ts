@@ -66,6 +66,13 @@ const carService = {
       );
     }
   },
+
+  async deleteCar(carId: string)  {
+    const deletedCar = await prisma.car.delete({
+      where: { id: carId },
+    });
+    return deletedCar;
+  },
 };
 
 export default carService;
