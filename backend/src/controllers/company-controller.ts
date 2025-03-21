@@ -24,10 +24,10 @@ const companyController = {
     }
   },
 
-  async deleteCompany(req: Request, res: Response): Promise<void>  {
+  async deleteCompany(req: Request, res: Response): Promise<void> {
     try {
       const { companyId } = req.params;
-  
+
       const deletedCompany = await companyService.deleteCompany(companyId);
       res.status(HTTP_STATUS_CODES.OK).json(deletedCompany);
     } catch (err) {
@@ -35,7 +35,21 @@ const companyController = {
         .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
         .json({ error: "An error occurred while deleting data." });
     }
-  }
+  },
+
+  async updateCompany(req: Request, res: Response) {
+    try {
+      const updatedCompany = await companyService.updateCompany(
+        req.params.companyId,
+        req.body
+      );
+      res.status(HTTP_STATUS_CODES.ACCEPTED).json(updatedCompany);
+    } catch (err) {
+      res
+        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+        .json({ error: "An error occurred while updating data." });
+    }
+  },
 };
 
 export default companyController;
