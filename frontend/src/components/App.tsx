@@ -2,7 +2,7 @@ import ResizableTable from "./ResizableTable";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { useState, useEffect } from "react";
-import { Spinner } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import { FaSort } from "react-icons/fa";
 import {
@@ -10,7 +10,7 @@ import {
   tableHeadsCustomers,
   tableHeadsCompanies,
 } from "../constants/tableheads";
-import { getAllCars } from "../services/carService";
+import { deleteCar, getAllCars } from "../services/carService";
 import { getAllCustomers } from "../services/customerService";
 import { getAllCompanies } from "../services/companyService";
 
@@ -217,6 +217,17 @@ export default function App() {
     sortConfig.direction
   );
 
+  function handleDelete(id: string) {
+    setLoading(true);
+  
+    deleteCar(id)
+      .then(() => {
+        setCars((prevCars) => prevCars.filter((car) => car.id !== id));
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }
+
   return (
     <>
       {loading ? (
@@ -271,6 +282,7 @@ export default function App() {
                         <FaSort />
                       </th>
                     ))}
+                    <th style={thStyle}>Actions</th>
                   </tr>
                   <SearchBar
                     SearchBarSum={13}
@@ -297,6 +309,28 @@ export default function App() {
                       <td>{car.company}</td>
                       <td>{car.contract}</td>
                       <td>{car.contract_dur}</td>
+                      <td className="p-0 align-middle">
+                        <div className="d-flex">
+                          <Button
+                            variant="success"
+                            size="sm"
+                            className="flex-grow-1 rounded-0"
+                            style={{ height: "100%" }}
+                            onClick={() => handleUpdate(car.id)}
+                          >
+                            Update
+                          </Button>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            className="flex-grow-1 rounded-0"
+                            style={{ height: "100%" }}
+                            onClick={() => handleDelete(car.id)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -322,6 +356,7 @@ export default function App() {
                         <FaSort />
                       </th>
                     ))}
+                    <th style={thStyle}>Actions</th>
                   </tr>
                   <SearchBar
                     SearchBarSum={9}
@@ -354,6 +389,28 @@ export default function App() {
                       <td>{customer.contract}</td>
                       <td>{customer.license_plate}</td>
                       <td>{customer.customer_tax_number}</td>
+                      <td className="p-0 align-middle">
+                        <div className="d-flex">
+                          <Button
+                            variant="success"
+                            size="sm"
+                            className="flex-grow-1 rounded-0"
+                            style={{ height: "100%" }}
+                            onClick={() => handleUpdate(customer.id)}
+                          >
+                            Update
+                          </Button>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            className="flex-grow-1 rounded-0"
+                            style={{ height: "100%" }}
+                            onClick={() => handleDelete(customer.id)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -378,6 +435,7 @@ export default function App() {
                         <FaSort />
                       </th>
                     ))}
+                    <th style={thStyle}>Actions</th>
                   </tr>
                   <SearchBar
                     SearchBarSum={5}
@@ -405,6 +463,28 @@ export default function App() {
                           {company.company_address_3}{" "}
                           {company.company_address_4}
                         </>
+                      </td>
+                      <td className="p-0 align-middle">
+                        <div className="d-flex">
+                          <Button
+                            variant="success"
+                            size="sm"
+                            className="flex-grow-1 rounded-0"
+                            style={{ height: "100%" }}
+                            onClick={() => handleUpdate(company.id)}
+                          >
+                            Update
+                          </Button>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            className="flex-grow-1 rounded-0"
+                            style={{ height: "100%" }}
+                            onClick={() => handleDelete(company.id)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
                       </td>
                     </tr>
                   ))}
