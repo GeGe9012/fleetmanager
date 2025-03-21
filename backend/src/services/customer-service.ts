@@ -1,18 +1,7 @@
 import { HTTP_STATUS_CODES } from "../constants/http-status-codes";
 import HttpError from "../utils/http-error";
 import prisma from "../db/prisma";
-
-interface NewCustomerData {
-  first_name: string;
-  last_name: string;
-  phone_number: string;
-  email: string;
-  customer_address_1: string;
-  customer_address_2: string;
-  customer_address_3: string;
-  customer_address_4: string;
-  customer_tax_number: string;
-}
+import { NewCustomerData } from "../interfaces/serviceInterfaces";
 
 const customerService = {
   async getAllCustomers(filters: Record<string, any> = {}) {

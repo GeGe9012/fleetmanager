@@ -1,19 +1,7 @@
 import { HTTP_STATUS_CODES } from "../constants/http-status-codes";
 import HttpError from "../utils/http-error";
 import prisma from "../db/prisma";
-
-interface NewCarData {
-  license_plate: string;
-  make: string;
-  model: string;
-  model_year: number;
-  color: string;
-  fuel_type: string;
-  vin: string;
-  reg_date: string;
-  drivetrain: string;
-  warranty: string;
-}
+import { NewCarData } from "../interfaces/serviceInterfaces";
 
 const carService = {
   async getAllCars(filters: Record<string, any> = {}) {
