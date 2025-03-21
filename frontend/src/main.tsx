@@ -1,11 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./components/App";
-import NewCar from "./components/NewCar";
-import NotFoundPage from "./components/NotFoundPage";
-import NewCustomer from "./components/NewCustomer";
-import NewCompany from "./components/NewCompany";
+import App from "./routes/App";
+import NewCar from "./routes/NewCar";
+import NotFoundPage from "./routes/NotFoundPage";
+import NewCustomer from "./routes/NewCustomer";
+import NewCompany from "./routes/NewCompany";
 import MainLayout from "./layouts/MainLayout";
 
 const router = createBrowserRouter([
