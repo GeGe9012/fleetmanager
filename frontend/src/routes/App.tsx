@@ -13,7 +13,12 @@ import {
 import { deleteCar, getAllCars } from "../services/carService";
 import { deleteCustomer, getAllCustomers } from "../services/customerService";
 import { deleteCommpany, getAllCompanies } from "../services/companyService";
-import { columnKeyMap, columnKeyMapCompanies, columnKeyMapCustomers, columnKeyMapFleet } from "../constants/columnKeyMaps";
+import {
+  columnKeyMap,
+  columnKeyMapCompanies,
+  columnKeyMapCustomers,
+  columnKeyMapFleet,
+} from "../constants/columnKeyMaps";
 
 interface Car {
   id: string;
@@ -129,8 +134,6 @@ export default function App() {
     });
   };
 
-  
-
   const handleSort = (column: string) => {
     const key = columnKeyMap[column];
     if (!key) return;
@@ -186,6 +189,10 @@ export default function App() {
         .catch(console.error)
         .finally(() => setLoading(false));
     }
+  }
+
+  function handleUpdate(id: string) {
+    console.log(id);
   }
 
   return (
@@ -275,7 +282,6 @@ export default function App() {
                             variant="success"
                             size="sm"
                             className="flex-grow-1 rounded-0"
-                            style={{ height: "100%" }}
                             onClick={() => handleUpdate(car.id)}
                           >
                             Update
@@ -284,7 +290,6 @@ export default function App() {
                             variant="danger"
                             size="sm"
                             className="flex-grow-1 rounded-0"
-                            style={{ height: "100%" }}
                             onClick={() => handleDelete(car.id)}
                           >
                             Delete
@@ -355,7 +360,6 @@ export default function App() {
                             variant="success"
                             size="sm"
                             className="flex-grow-1 rounded-0"
-                            style={{ height: "100%" }}
                             onClick={() => handleUpdate(customer.id)}
                           >
                             Update
@@ -364,7 +368,6 @@ export default function App() {
                             variant="danger"
                             size="sm"
                             className="flex-grow-1 rounded-0"
-                            style={{ height: "100%" }}
                             onClick={() => handleDelete(customer.id)}
                           >
                             Delete
@@ -430,7 +433,6 @@ export default function App() {
                             variant="success"
                             size="sm"
                             className="flex-grow-1 rounded-0"
-                            style={{ height: "100%" }}
                             onClick={() => handleUpdate(company.id)}
                           >
                             Update
@@ -439,7 +441,6 @@ export default function App() {
                             variant="danger"
                             size="sm"
                             className="flex-grow-1 rounded-0"
-                            style={{ height: "100%" }}
                             onClick={() => handleDelete(company.id)}
                           >
                             Delete
