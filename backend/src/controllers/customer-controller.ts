@@ -35,6 +35,19 @@ const customerController = {
         .json({ error: "An error occurred while deleting data." });
     }
   },
+  async updateCustomer(req: Request, res: Response) {
+    try {
+      const updatedCustomer = await customerService.updateCustomer(
+        req.params.customerId,
+        req.body
+      );
+      res.status(HTTP_STATUS_CODES.ACCEPTED).json(updatedCustomer);
+    } catch (err) {
+      res
+        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+        .json({ error: "An error occurred while updating data." });
+    }
+  },
 };
 
 export default customerController;
