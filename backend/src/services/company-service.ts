@@ -45,10 +45,9 @@ const companyService = {
         data: NewCompanyData,
       });
       return company;
-    } catch (err: any) {
-      console.error("Prisma Error:", err);
+    } catch (err) {
       throw new HttpError(
-        err.message || "Company could not be created.",
+        "Company could not be created.",
         HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
       );
     }
