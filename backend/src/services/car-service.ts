@@ -79,6 +79,18 @@ const carService = {
       );
     }
   },
+
+  async updateCar(carId: string, newCarData: NewCarData) {
+    try {
+      const updatedCar = await prisma.car.update({
+        where: { id: carId },
+        data: newCarData,
+      });
+      return updatedCar;
+    } catch (err) {
+      throw new HttpError("Car does not exist", HTTP_STATUS_CODES.NOT_FOUND);
+    }
+  },
 };
 
 export default carService;
