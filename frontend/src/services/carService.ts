@@ -16,7 +16,9 @@ interface Car {
 
 export async function getAllCars(queryParams = {}) {
   try {
-    const response = await axios.get(`${BACKEND_URL}/api/cars`, { params: queryParams });
+    const response = await axios.get(`${BACKEND_URL}/api/cars`, {
+      params: queryParams,
+    });
     return response.data;
   } catch (error) {
     console.error("An error occurred while fetching cars:", error);
@@ -26,15 +28,22 @@ export async function getAllCars(queryParams = {}) {
 
 export async function createCar(car: Car) {
   try {
-    const response = await axios.post(
-      `${BACKEND_URL}/api/cars`,
-      {
-        ...car,
-      }
-    );
+    const response = await axios.post(`${BACKEND_URL}/api/cars`, {
+      ...car,
+    });
     return response.data;
   } catch (error) {
     console.error("An error occurred while creating car:", error);
     throw new Error("Failed to create car. Please try again later!");
+  }
+}
+
+export async function deleteCar(id: string) {
+  try {
+    const response = await axios.delete(`${BACKEND_URL}/api/cars/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("An error occurred while deleting car:", error);
+    throw new Error("Failed to delete car. Please try again later!");
   }
 }
