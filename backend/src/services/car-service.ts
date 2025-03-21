@@ -58,20 +58,26 @@ const carService = {
         data: newCarData,
       });
       return car;
-    } catch (err: any) {
-      console.error("Prisma Error:", err);
+    } catch (err) {
       throw new HttpError(
-        err.message || "Car could not be created.",
+        "Car could not be created.",
         HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
       );
     }
   },
 
-  async deleteCar(carId: string)  {
-    const deletedCar = await prisma.car.delete({
-      where: { id: carId },
-    });
-    return deletedCar;
+  async deleteCar(carId: string) {
+    try {
+      const deletedCar = await prisma.car.delete({
+        where: { id: carId },
+      });
+      return deletedCar;
+    } catch (err) {
+      throw new HttpError(
+        "Car could not be deleted.",
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+      );
+    }
   },
 };
 
