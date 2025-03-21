@@ -1,49 +1,45 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import carService from "../services/car-service";
 import { HTTP_STATUS_CODES } from "../constants/http-status-codes";
 
 const carController = {
-  async getAllCars(req: Request, res: Response) {
+  async getAllCars(req: Request, res: Response, next: NextFunction) {
     try {
       const cars = await carService.getAllCars(req.query);
       res.status(HTTP_STATUS_CODES.OK).json(cars);
-    } catch (error) {
-      res
-        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: "An error occurred while retrieving the data." });
+    } catch (err) {
+      next(err);
     }
   },
-  async createCar(req: Request, res: Response) {
+  async createCar(req: Request, res: Response, next: NextFunction) {
     try {
       const newCar = await carService.createCar(req.body);
       res.status(HTTP_STATUS_CODES.CREATED).json(newCar);
     } catch (err) {
-      res
-        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: "An error occurred while creating data." });
+      next(err);
     }
   },
-  async deleteCar(req: Request, res: Response): Promise<void> {
+  async deleteCar(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
       const { carId } = req.params;
 
       const deletedCar = await carService.deleteCar(carId);
       res.status(HTTP_STATUS_CODES.OK).json(deletedCar);
     } catch (err) {
-      res
-        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: "An error occurred while deleting data." });
+      next(err);
     }
   },
 
-  async updateCar(req: Request, res: Response) {
+  async updateCar(req: Request, res: Response, next: NextFunction) {
     try {
       const updatedCar = await carService.updateCar(req.params.carId, req.body);
       res.status(HTTP_STATUS_CODES.ACCEPTED).json(updatedCar);
     } catch (err) {
-      res
-        .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: "An error occurred while updating data." });
+      next(err);
     }
   },
 };
