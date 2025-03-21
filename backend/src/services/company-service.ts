@@ -66,6 +66,21 @@ const companyService = {
       );
     }
   },
+
+  async updateCompany(companyId: string, newCompanyData: NewCompanyData) {
+    try {
+      const updatedCompany = await prisma.company.update({
+        where: { id: companyId },
+        data: newCompanyData,
+      });
+      return updatedCompany;
+    } catch (err) {
+      throw new HttpError(
+        "Company does not exist",
+        HTTP_STATUS_CODES.NOT_FOUND
+      );
+    }
+  },
 };
 
 export default companyService;
