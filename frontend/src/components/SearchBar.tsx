@@ -90,6 +90,8 @@ export default function SearchBar({
           />
         </th>
       ))}
+      <th>
+      </th>
     </tr>
   );
 }
