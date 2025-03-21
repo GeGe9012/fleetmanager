@@ -46,10 +46,23 @@ const customerService = {
         data: newCustomerData,
       });
       return customer;
-    } catch (err: any) {
-      console.error("Prisma Error:", err);
+    } catch (err) {
       throw new HttpError(
-        err.message || "Customer could not be created.",
+        "Customer could not be created.",
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+
+  async deleteCustomer(customerId: string) {
+    try {
+      const deletedCustomer = await prisma.customer.delete({
+        where: { id: customerId },
+      });
+      return deletedCustomer;
+    } catch (err) {
+      throw new HttpError(
+        "Customer could not be deleted.",
         HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
       );
     }
