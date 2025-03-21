@@ -1,0 +1,62 @@
+export const columnKeyMap: { [key: string]: string } = {
+  "License Plate": "license_plate",
+  Make: "make",
+  Model: "model",
+  "Model Year": "model_year",
+  Color: "color",
+  Fuel: "fuel_type",
+  VIN: "vin",
+  "Registration Date": "reg_date",
+  Drivetrain: "drivetrain",
+  Warranty: "warranty",
+  Company: "company",
+  Contract: "contract",
+  "Contract duration": "contract_dur",
+  "First Name": "first_name",
+  "Last Name": "last_name",
+  "Company Name": "company",
+  "Phone Number": "phone_number",
+  "E-mail": "email",
+  Address: "customer_address_1",
+  "Tax Number": "customer_tax_number",
+  "Company Tax Number": "company_tax_number",
+  "Company Address": "company_address_1",
+  "Company Phone Number": "contact_phone_number",
+  "Registration Number": "reg_number",
+};
+
+export const columnKeyMapFleet: { [key: number]: string } = {
+  0: "license_plate",
+  1: "make",
+  2: "model",
+  3: "model_year",
+  4: "color",
+  5: "fuel_type",
+  6: "vin",
+  7: "reg_date",
+  8: "drivetrain",
+  9: "warranty",
+  10: "company",
+  11: "contract",
+  12: "contract_dur",
+};
+
+export const columnKeyMapCustomers: { [key: string]: string } = {
+  0: "first_name",
+  1: "last_name",
+  2: "company",
+  3: "phone_number",
+  4: "email",
+  5: "customer_address_1",
+  6: "contract",
+  7: "license_plate",
+  8: "customer_tax_number",
+};
+
+export const columnKeyMapCompanies: { [key: string]: string } = {
+  0: "company",
+  1: "company_tax_number",
+  2: "contact_phone_number",
+  3: "reg_number",
+  4: "company_address_1",
+};
