@@ -67,6 +67,21 @@ const customerService = {
       );
     }
   },
+
+  async updateCustomer(customerId: string, newCustomerData: NewCustomerData) {
+    try {
+      const updatedCustomer = await prisma.customer.update({
+        where: { id: customerId },
+        data: newCustomerData,
+      });
+      return updatedCustomer;
+    } catch (err) {
+      throw new HttpError(
+        "Customer does not exist",
+        HTTP_STATUS_CODES.NOT_FOUND
+      );
+    }
+  },
 };
 
 export default customerService;
