@@ -11,8 +11,8 @@ import {
   tableHeadsCompanies,
 } from "../constants/tableheads";
 import { deleteCar, getAllCars } from "../services/carService";
-import { getAllCustomers } from "../services/customerService";
-import { getAllCompanies } from "../services/companyService";
+import { deleteCustomer, getAllCustomers } from "../services/customerService";
+import { deleteCommpany, getAllCompanies } from "../services/companyService";
 
 interface Car {
   id: string;
@@ -219,13 +219,33 @@ export default function App() {
 
   function handleDelete(id: string) {
     setLoading(true);
-  
-    deleteCar(id)
-      .then(() => {
-        setCars((prevCars) => prevCars.filter((car) => car.id !== id));
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
+
+    if (activeTab === "fleet") {
+      deleteCar(id)
+        .then(() => {
+          setCars((prevCars) => prevCars.filter((car) => car.id !== id));
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false));
+    } else if (activeTab === "customers") {
+      deleteCustomer(id)
+        .then(() => {
+          setCustomers((prevCustomers) =>
+            prevCustomers.filter((customer) => customer.id !== id)
+          );
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false));
+    } else if (activeTab === "companies") {
+      deleteCommpany(id)
+        .then(() => {
+          setCompanies((prevCompanies) =>
+            prevCompanies.filter((company) => company.id !== id)
+          );
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false));
+    }
   }
 
   return (
