@@ -38,3 +38,13 @@ export async function createCompany(company: Company) {
     throw new Error("Failed to create company. Please try again later!");
   }
 }
+
+export async function deleteCommpany(id: string) {
+  try {
+    const response = await axios.delete(`${BACKEND_URL}/api/companies/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("An error occurred while deleting company:", error);
+    throw new Error("Failed to delete company. Please try again later!");
+  }
+}
