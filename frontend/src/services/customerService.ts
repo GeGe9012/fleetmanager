@@ -37,3 +37,13 @@ export async function createCustomer(customer: Customer) {
     throw new Error("Failed to create customer. Please try again later!");
   }
 }
+
+export async function deleteCustomer(id: string) {
+  try {
+    const response = await axios.delete(`${BACKEND_URL}/api/customers/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("An error occurred while deleting customer:", error);
+    throw new Error("Failed to delete customer. Please try again later!");
+  }
+}
