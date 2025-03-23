@@ -19,7 +19,17 @@ const customerService = {
           }
         }
       });
-      const customers = await prisma.customer.findMany({ where: whereClause });
+      const customers = await prisma.customer.findMany({
+        where: whereClause,
+        include: {
+          contracts: {
+            include: {
+              car: true,
+              company: true,
+            },
+          },
+        },
+      });
       return customers;
     } catch (err) {
       throw new HttpError(
@@ -38,7 +48,7 @@ const customerService = {
     } catch (err) {
       throw new HttpError(
         "Customer could not be created.",
-        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR,
       );
     }
   },
