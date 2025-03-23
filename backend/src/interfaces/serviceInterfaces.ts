@@ -33,3 +33,13 @@ export interface NewCompanyData {
   company_address_3: string;
   company_address_4: string;
 }
+
+export interface NewContractData {
+  license_plate: string;
+  customer_name: string;
+  company_name: string;
+  contract_exp: string;
+  car_id: string;
+  customer_id: string;
+  company_id: string;
+}
