@@ -8,8 +8,8 @@ datasource db {
 }
 
 model Car {
-  id            String     @id @default(uuid())
-  license_plate String     @unique
+  id            String    @id @default(uuid())
+  license_plate String    @unique
   make          String
   model         String
   model_year    Int
@@ -19,9 +19,11 @@ model Car {
   reg_date      String
   drivetrain    String
   warranty      String
-  created_at    DateTime   @default(now())
-  modified_at   DateTime   @updatedAt
-  contracts     Contract[]
+  created_at    DateTime  @default(now())
+  modified_at   DateTime  @updatedAt
+  contract      Contract? @relation("CarToContract")
+
+  contract_id String? @unique
 }
 
 model Customer {
@@ -56,16 +58,19 @@ model Company {
 }
 
 model Contract {
-  id           String   @id @default(uuid())
-  contract     String
-  contract_dur DateTime
-  company_id   String
-  car_id       String
-  customer_id  String
-  created_at   DateTime @default(now())
-  modified_at  DateTime @updatedAt
+  id              String   @id @default(uuid())
+  contract_number String   @unique
+  license_plate   String
+  customer_name   String
+  company_name    String
+  contract_exp    String
+  created_at      DateTime @default(now())
+  modified_at     DateTime @updatedAt
+  company_id      String
+  car_id          String   @unique
+  customer_id     String
 
   company  Company  @relation(fields: [company_id], references: [id])
-  car      Car      @relation(fields: [car_id], references: [id])
+  car      Car      @relation(name: "CarToContract", fields: [car_id], references: [id])
   customer Customer @relation(fields: [customer_id], references: [id])
 }
