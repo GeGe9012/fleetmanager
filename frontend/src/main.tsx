@@ -7,6 +7,7 @@ import NotFoundPage from "./routes/NotFoundPage";
 import NewCustomer from "./routes/NewCustomer";
 import NewCompany from "./routes/NewCompany";
 import MainLayout from "./layouts/MainLayout";
+import NewContract from "./routes/NewContract";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "newcompany",
         element: <NewCompany />,
+      },
+      {
+        path: "newcontract",
+        element: <NewContract />,
       },
       {
         path: "*",
