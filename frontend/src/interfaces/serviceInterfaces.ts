@@ -9,6 +9,7 @@ export interface Car {
   reg_date: number;
   drivetrain: string;
   warranty: string;
+  contract?: Contract | null;
 }
 
 export interface Company {
@@ -32,4 +33,16 @@ export interface Customer {
   customer_address_3: string;
   customer_address_4: string;
   customer_tax_number: string;
+  contracts?: Contract[];
+}
+
+export interface Contract {
+  contract_number: string;
+  license_plate: string;
+  customer_name: string;
+  company_name: string;
+  contract_exp: string;
+  car_id: string;
+  customer_id: string;
+  company_id: string;
 }
