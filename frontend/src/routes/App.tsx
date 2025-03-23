@@ -20,8 +20,7 @@ import {
   columnKeyMapFleet,
 } from "../constants/columnKeyMaps";
 import { Car, Company, Customer } from "../interfaces/appInterfaces";
-
-
+import { Contract } from "../interfaces/serviceInterfaces";
 
 export default function App() {
   const thStyle: object = {
@@ -233,9 +232,9 @@ export default function App() {
                       <td>{car.reg_date}</td>
                       <td>{car.drivetrain}</td>
                       <td>{car.warranty}</td>
-                      <td>{car.company}</td>
-                      <td>{car.contract}</td>
-                      <td>{car.contract_dur}</td>
+                      <td>{(car.contract as unknown as Contract)?.company_name ?? ""}</td>
+                      <td>{(car.contract as unknown as Contract)?.contract_number ?? ""}</td>
+                      <td>{(car.contract as unknown as Contract)?.contract_exp ?? ""}</td>
                       <td className="p-0 align-middle">
                         <div className="d-flex">
                           <Button
@@ -297,7 +296,12 @@ export default function App() {
                       <td>{index + 1}</td>
                       <td>{customer.first_name}</td>
                       <td>{customer.last_name}</td>
-                      <td>{customer.company}</td>
+                      <td>
+                        {Array.isArray(customer.contracts) &&
+                        customer.contracts.length > 0
+                          ? customer.contracts[0].company_name
+                          : ""}
+                      </td>
                       <td>{customer.phone_number}</td>
                       <td>{customer.email}</td>
                       <td>
@@ -311,8 +315,20 @@ export default function App() {
                           {customer.customer_address_4}
                         </>
                       </td>
-                      <td>{customer.contract}</td>
-                      <td>{customer.license_plate}</td>
+                      <td>
+                        {Array.isArray(customer.contracts)
+                          ? customer.contracts
+                              .map((contract) => contract.contract_number)
+                              .join(", ")
+                          : ""}
+                      </td>
+                      <td>
+                        {Array.isArray(customer.contracts)
+                          ? customer.contracts
+                              .map((contract) => contract.license_plate)
+                              .join(", ")
+                          : ""}
+                      </td>
                       <td>{customer.customer_tax_number}</td>
                       <td className="p-0 align-middle">
                         <div className="d-flex">
