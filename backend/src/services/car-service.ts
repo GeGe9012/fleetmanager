@@ -5,9 +5,9 @@ import { NewCarData } from "../interfaces/serviceInterfaces";
 
 const carService = {
   async getAllCars(filters: Record<string, any> = {}) {
+
     try {
       const whereClause: Record<string, any> = {};
-
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
           if (["model_year", "reg_date"].includes(key)) {
@@ -30,7 +30,17 @@ const carService = {
         }
       });
 
-      const cars = await prisma.car.findMany({ where: whereClause });
+      const cars = await prisma.car.findMany({
+        where: whereClause,
+        include: {
+          contract: {
+            include: {
+              company: true,
+              customer: true,
+            },
+          },
+        },
+      });
       return cars;
     } catch (err) {
       throw new HttpError(
