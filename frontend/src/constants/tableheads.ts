@@ -11,7 +11,7 @@ export const tableHeadsCars: string[] = [
   "Warranty",
   "Company",
   "Contract",
-  "Contract duration",
+  "Contract Expiration Date",
 ];
 
 export const tableHeadsCustomers: string[] = [
@@ -21,8 +21,8 @@ export const tableHeadsCustomers: string[] = [
   "Phone Number",
   "E-mail",
   "Address",
-  "Contract",
-  "License Plate",
+  "Contract(s)",
+  "License Plate(s)",
   "Tax Number",
 ];
 
