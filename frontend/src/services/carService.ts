@@ -7,6 +7,7 @@ export async function getAllCars(queryParams = {}) {
     const response = await axios.get(`${BACKEND_URL}/api/cars`, {
       params: queryParams,
     });
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error("An error occurred while fetching cars:", error);
