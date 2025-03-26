@@ -74,3 +74,21 @@ model Contract {
   car      Car      @relation(name: "CarToContract", fields: [car_id], references: [id])
   customer Customer @relation(fields: [customer_id], references: [id])
 }
+
+model Color {
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime @default(now())
+}
+
+model Warranty {
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime @default(now())
+}
+
+model Make {
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime @default(now())
+}
