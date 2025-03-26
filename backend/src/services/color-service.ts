@@ -22,7 +22,6 @@ const colorService = {
       });
       return color;
     } catch (err) {
-        console.log(err)
       throw new HttpError(
         "Color could not be created.",
         HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
