@@ -70,9 +70,9 @@ model Contract {
   car_id          String   @unique
   customer_id     String
 
-  company  Company  @relation(fields: [company_id], references: [id])
-  car      Car      @relation(name: "CarToContract", fields: [car_id], references: [id])
-  customer Customer @relation(fields: [customer_id], references: [id])
+  company  Company  @relation(fields: [company_id], references: [id], onDelete: Cascade)
+  car      Car      @relation(name: "CarToContract", fields: [car_id], references: [id], onDelete: Cascade)
+  customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
 }
 
 model Color {
