@@ -40,3 +40,18 @@ export interface Company {
   company_address_4: string;
   [key: string]: string;
 }
+
+export interface Color {
+  id: string;
+  name: string;
+}
+
+export interface WarrantyTerm {
+  id: string;
+  name: string;
+}
+
+export interface CarMake {
+  id: string;
+  name: string;
+}
