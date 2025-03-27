@@ -19,8 +19,7 @@ import {
   columnKeyMapCustomers,
   columnKeyMapFleet,
 } from "../constants/columnKeyMaps";
-import { Car, Company, Customer } from "../interfaces/appInterfaces";
-import { Contract } from "../interfaces/serviceInterfaces";
+import { Car, Company, Customer, Contract } from "../interfaces/appInterfaces";
 
 export default function App() {
   const thStyle: object = {
