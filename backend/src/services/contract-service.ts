@@ -5,7 +5,6 @@ import { NewContractData } from "../interfaces/serviceInterfaces";
 
 const contractService = {
   async createContract(data: NewContractData) {
-    console.log(data);
     try {
       const contractNumber = await generateContractNumber();
 
@@ -51,12 +50,18 @@ const contractService = {
         customer: updatedCustomer,
         company: updatedCompany,
       };
-    } catch (err) {
-      console.log(err);
-      throw new HttpError(
-        "Error creating contract",
-        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
-      );
+    } catch (err: any) {
+      if (err.code === "P2014") {
+        throw new HttpError(
+          "The car already has an active contract!",
+          HTTP_STATUS_CODES.BAD_REQUEST
+        );
+      } else {
+        throw new HttpError(
+          "Contract could not be created.",
+          HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+        );
+      }
     }
   },
 };
