@@ -220,7 +220,7 @@ export default function App() {
                 </thead>
                 <tbody style={{ padding: "2px", textAlign: "center" }}>
                   {sortedCars.map((car, index) => (
-                    <tr key={car.id}>
+                    <tr style={{ textTransform: "capitalize" }} key={car.id}>
                       <td>{index + 1}</td>
                       <td>{car.license_plate}</td>
                       <td>{car.make}</td>
@@ -231,10 +231,19 @@ export default function App() {
                       <td>{car.vin}</td>
                       <td>{car.reg_date}</td>
                       <td>{car.drivetrain}</td>
-                      <td>{car.warranty}</td>
-                      <td>{(car.contract as unknown as Contract)?.company_name ?? ""}</td>
-                      <td>{(car.contract as unknown as Contract)?.contract_number ?? ""}</td>
-                      <td>{(car.contract as unknown as Contract)?.contract_exp ?? ""}</td>
+                      <td>{car.warranty} months</td>
+                      <td>
+                        {(car.contract as unknown as Contract)?.company_name ??
+                          ""}
+                      </td>
+                      <td>
+                        {(car.contract as unknown as Contract)
+                          ?.contract_number ?? ""}
+                      </td>
+                      <td>
+                        {(car.contract as unknown as Contract)?.contract_exp ??
+                          ""}
+                      </td>
                       <td className="p-0 align-middle">
                         <div className="d-flex">
                           <Button
