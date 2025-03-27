@@ -1,14 +1,38 @@
 import { useFormik } from "formik";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import validationSchema from "../schema/newCarSchema";
-import carMakes from "../constants/carMakes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import colors from "../constants/colors";
-import warrantyTerms from "../constants/warrantyTerms";
 import { createCar } from "../services/carService";
+import { useEffect, useState } from "react";
+import { CarMake, Color, WarrantyTerm } from "../interfaces/appInterfaces";
+import { getAllColors } from "../services/colorService";
+import { getAllWarranties } from "../services/warrantyService";
+import { getAllMakes } from "../services/makeService";
+import axios from "axios";
 
 export default function NewCar() {
+  const [colors, setColors] = useState<Color[]>([]);
+  const [warrantyTerms, setWarrantyTerms] = useState<WarrantyTerm[]>([]);
+  const [carMakes, setCarMakes] = useState<CarMake[]>([]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      const colorsData = await getAllColors();
+      const warrantyTermsData = await getAllWarranties();
+      const carMakesData = await getAllMakes();
+      setColors(colorsData);
+      setWarrantyTerms(warrantyTermsData);
+      setCarMakes(carMakesData);
+    } catch (error) {
+      console.error("Error loading data:", error);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       license_plate: "",
@@ -24,7 +48,7 @@ export default function NewCar() {
     },
 
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm, setFieldError }) => {
       try {
         const response = await createCar(values);
         if (!response) {
@@ -33,7 +57,19 @@ export default function NewCar() {
           resetForm();
         }
       } catch (error) {
-        console.error("Unexpected error:", error);
+        if (axios.isAxiosError(error)) {
+          if (
+            error.response?.status === 400 &&
+            error.response.data?.message?.includes("Car already exists!")
+          ) {
+            setFieldError(
+              "license_plate",
+              "This license plate already exists!"
+            );
+          } else {
+            console.error("Unexpected error:", error);
+          }
+        }
       }
     },
   });
@@ -69,11 +105,12 @@ export default function NewCar() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 isInvalid={formik.touched.make && !!formik.errors.make}
+                style={{ textTransform: "capitalize" }}
               >
                 <option value="">Choose a make...</option>
-                {carMakes.map((make, index) => (
-                  <option key={index} value={make}>
-                    {make}
+                {carMakes?.map((make, index) => (
+                  <option key={index} value={make.name}>
+                    {make.name}
                   </option>
                 ))}
               </Form.Select>
@@ -131,11 +168,12 @@ export default function NewCar() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 isInvalid={formik.touched.color && !!formik.errors.color}
+                style={{ textTransform: "capitalize" }}
               >
                 <option value="">Choose a color...</option>
-                {colors.map((color, index) => (
-                  <option key={index} value={color}>
-                    {color}
+                {colors?.map((color, index) => (
+                  <option key={index} value={color.name}>
+                    {color.name}
                   </option>
                 ))}
               </Form.Select>
@@ -245,9 +283,9 @@ export default function NewCar() {
                 isInvalid={formik.touched.warranty && !!formik.errors.warranty}
               >
                 <option value="">Choose warranty term...</option>
-                {warrantyTerms.map((warranty, index) => (
-                  <option key={index} value={warranty}>
-                    {warranty}
+                {warrantyTerms?.map((warranty, index) => (
+                  <option key={index} value={warranty.name}>
+                    {warranty.name}
                   </option>
                 ))}
               </Form.Select>
