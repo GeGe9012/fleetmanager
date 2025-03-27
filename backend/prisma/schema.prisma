@@ -77,18 +77,18 @@ model Contract {
 
 model Color {
   id         String   @id @default(uuid())
-  name       String
+  name       String   @unique
   created_at DateTime @default(now())
 }
 
 model Warranty {
   id         String   @id @default(uuid())
-  name       String
+  name       String   @unique
   created_at DateTime @default(now())
 }
 
 model Make {
   id         String   @id @default(uuid())
-  name       String
+  name       String   @unique
   created_at DateTime @default(now())
 }
