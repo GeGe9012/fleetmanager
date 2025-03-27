@@ -41,6 +41,17 @@ export interface Company {
   [key: string]: string;
 }
 
+export interface Contract {
+  contract_number: string;
+  license_plate: string;
+  customer_name: string;
+  company_name: string;
+  contract_exp: string;
+  car_id: string;
+  customer_id: string;
+  company_id: string;
+}
+
 export interface Color {
   id: string;
   name: string;
