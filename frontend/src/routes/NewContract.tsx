@@ -8,6 +8,7 @@ import { getAllCustomers } from "../services/customerService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { createContract } from "../services/contractService";
+import axios from "axios";
 
 export default function NewContract() {
   const [cars, setCars] = useState<{ id: string; license_plate: string }[]>([]);
@@ -26,8 +27,7 @@ export default function NewContract() {
     },
 
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
-      console.log(values);
+    onSubmit: async (values, { resetForm, setFieldError }) => {
       try {
         const response = await createContract(values);
         if (!response) {
@@ -36,7 +36,19 @@ export default function NewContract() {
           resetForm();
         }
       } catch (error) {
-        console.error("Unexpected error:", error);
+        if (axios.isAxiosError(error)) {
+          if (
+            error.response?.status === 400 &&
+            error.response.data?.message?.includes("The car already has an active contract!")
+          ) {
+            setFieldError(
+              "license_plate",
+              "The car already has an active contract!"
+            );
+          } else {
+            console.error("Unexpected error:", error);
+          }
+        }
       }
     },
   });
