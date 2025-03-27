@@ -77,6 +77,7 @@ const carService = {
       });
       return deletedCar;
     } catch (err) {
+      console.log(err)
       throw new HttpError(
         "Car could not be deleted.",
         HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
