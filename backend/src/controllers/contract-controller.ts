@@ -5,7 +5,6 @@ import contractService from "../services/contract-service";
 
 const contractController = {
   async createContract(req: Request, res: Response, next: NextFunction) {
-    console.log(req.body)
     try {
       const newContract = await contractService.createContract(req.body);
       res.status(HTTP_STATUS_CODES.CREATED).json(newContract);
@@ -13,7 +12,6 @@ const contractController = {
       next(err);
     }
   },
-  
 };
 
 export default contractController;
