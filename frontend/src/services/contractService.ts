@@ -7,10 +7,22 @@ export async function createContract(contract: Contract) {
     const response = await axios.post(`${BACKEND_URL}/api/contracts`, {
       ...contract,
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("An error occurred while creating contract:", error);
-    throw new Error("Failed to create contract. Please try again later!");
+    if (axios.isAxiosError(error)) {
+      if (error.response && error.response.status === 400) {
+        const errorMessage = error.response?.data?.message;
+        if (
+          errorMessage &&
+          errorMessage.includes("The car already has an active contract!")
+        ) {
+          console.error("The car already has an active contract:", error);
+          throw error;
+        }
+      }
+    } else {
+      console.error("An unknown error occurred:", error);
+      throw error;
+    }
   }
 }
