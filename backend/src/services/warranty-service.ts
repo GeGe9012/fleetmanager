@@ -21,12 +21,18 @@ const warrantyService = {
         data: newWarrantyData,
       });
       return warranty;
-    } catch (err) {
-      console.log(err);
-      throw new HttpError(
-        "Warranty term could not be created.",
-        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
-      );
+    } catch (err: any) {
+      if (err.code === "P2002") {
+        throw new HttpError(
+          "Warranty term already exists!",
+          HTTP_STATUS_CODES.BAD_REQUEST
+        );
+      } else {
+        throw new HttpError(
+          "Warranty term could not be created.",
+          HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+        );
+      }
     }
   },
 

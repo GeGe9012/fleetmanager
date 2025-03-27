@@ -21,11 +21,18 @@ const colorService = {
         data: newColorData,
       });
       return color;
-    } catch (err) {
-      throw new HttpError(
-        "Color could not be created.",
-        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
-      );
+    } catch (err: any) {
+      if (err.code === "P2002") {
+        throw new HttpError(
+          "Color already exists!",
+          HTTP_STATUS_CODES.BAD_REQUEST
+        );
+      } else {
+        throw new HttpError(
+          "Color could not be created.",
+          HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+        );
+      }
     }
   },
 

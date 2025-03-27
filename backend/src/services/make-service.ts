@@ -21,12 +21,18 @@ const makeService = {
         data: newMakeData,
       });
       return make;
-    } catch (err) {
-        console.log(err)
-      throw new HttpError(
-        "Make could not be created.",
-        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
-      );
+    } catch (err: any) {
+      if (err.code === "P2002") {
+        throw new HttpError(
+          "Make already exists!",
+          HTTP_STATUS_CODES.BAD_REQUEST
+        );
+      } else {
+        throw new HttpError(
+          "Make could not be created.",
+          HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+        );
+      }
     }
   },
 
