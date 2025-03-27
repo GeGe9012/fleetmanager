@@ -5,7 +5,6 @@ import { NewCarData } from "../interfaces/serviceInterfaces";
 
 const carService = {
   async getAllCars(filters: Record<string, any> = {}) {
-
     try {
       const whereClause: Record<string, any> = {};
       Object.entries(filters).forEach(([key, value]) => {
@@ -56,11 +55,18 @@ const carService = {
         data: newCarData,
       });
       return car;
-    } catch (err) {
-      throw new HttpError(
-        "Car could not be created.",
-        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
-      );
+    } catch (err: any) {
+      if (err.code === "P2002") {
+        throw new HttpError(
+          "Car already exists!",
+          HTTP_STATUS_CODES.BAD_REQUEST
+        );
+      } else {
+        throw new HttpError(
+          "Car could not be created.",
+          HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+        );
+      }
     }
   },
 
