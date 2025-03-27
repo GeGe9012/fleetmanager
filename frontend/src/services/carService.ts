@@ -7,7 +7,6 @@ export async function getAllCars(queryParams = {}) {
     const response = await axios.get(`${BACKEND_URL}/api/cars`, {
       params: queryParams,
     });
-    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error("An error occurred while fetching cars:", error);
@@ -22,8 +21,18 @@ export async function createCar(car: Car) {
     });
     return response.data;
   } catch (error) {
-    console.error("An error occurred while creating car:", error);
-    throw new Error("Failed to create car. Please try again later!");
+    if (axios.isAxiosError(error)) {
+      if (error.response && error.response.status === 400) {
+        const errorMessage = error.response?.data?.message;
+        if (errorMessage && errorMessage.includes("Car already exists!")) {
+          console.error("Car already exists:", error);
+          throw error;
+        }
+      }
+    } else {
+      console.error("An unknown error occurred:", error);
+      throw error;
+    }
   }
 }
 
