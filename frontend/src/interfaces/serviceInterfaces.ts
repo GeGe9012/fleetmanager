@@ -37,7 +37,6 @@ export interface Customer {
 }
 
 export interface Contract {
-  contract_number: string;
   license_plate: string;
   customer_name: string;
   company_name: string;
