@@ -5,6 +5,10 @@ import createContractSchema from "../schemas/contract-schema";
 
 const router = express.Router();
 
-router.post("/",yupValidate(createContractSchema), contractController.createContract);
+router.post(
+  "/",
+  yupValidate(createContractSchema),
+  contractController.createContract
+);
 
 export default router;
