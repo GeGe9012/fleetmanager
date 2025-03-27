@@ -34,6 +34,7 @@ export default function Header() {
               <NavDropdown.Item href="/newcar">Add new car</NavDropdown.Item>
               <NavDropdown.Item href="/newcustomer">Add new customer</NavDropdown.Item>
               <NavDropdown.Item href="/newcompany">Add new company</NavDropdown.Item>
+              <NavDropdown.Item href="/addingtools">Adding Tools</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="https://aboutme-mg.vercel.app/">About me</NavDropdown.Item>
             </NavDropdown>
