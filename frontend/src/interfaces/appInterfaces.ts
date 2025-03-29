@@ -5,10 +5,10 @@ export interface Car {
   model: string;
   model_year: number;
   color: string;
-  fuel_type: boolean;
+  fuel_type: string;
   vin: string;
   reg_date: number;
-  drivetrain: boolean;
+  drivetrain: string;
   warranty: string;
   [key: string]: string | number | boolean;
 }
