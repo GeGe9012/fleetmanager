@@ -1,10 +1,7 @@
 import express from "express";
 import customerController from "../controllers/customer-controller";
 import yupValidate from "../middleware/validate";
-import {
-  createCustomerSchema,
-  updateCustomerSchema,
-} from "../schemas/customer-schema";
+import createCustomerSchema from "../schemas/customer-schema";
 
 const router = express.Router();
 
@@ -15,10 +12,6 @@ router.post(
   customerController.createCustomer
 );
 router.delete("/:customerId", customerController.deleteCustomer);
-router.patch(
-  "/:customerId",
-  yupValidate(updateCustomerSchema),
-  customerController.updateCustomer
-);
+router.patch("/:customerId", customerController.updateCustomer);
 
 export default router;
