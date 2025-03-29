@@ -77,7 +77,6 @@ const carService = {
       });
       return deletedCar;
     } catch (err) {
-      console.log(err)
       throw new HttpError(
         "Car could not be deleted.",
         HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
@@ -85,11 +84,21 @@ const carService = {
     }
   },
 
-  async updateCar(carId: string, newCarData: NewCarData) {
+  async updateCar(carId: string, carData: NewCarData) {
     try {
+      const existingCar = await prisma.car.findUnique({
+        where: { id: carId },
+        select: { contract_id: true },
+      });
+
+      if (!existingCar) throw new Error("Car not found");
+
       const updatedCar = await prisma.car.update({
         where: { id: carId },
-        data: newCarData,
+        data: {
+          ...carData,
+          contract_id: existingCar.contract_id,
+        },
       });
       return updatedCar;
     } catch (err) {
