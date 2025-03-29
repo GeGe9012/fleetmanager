@@ -10,7 +10,8 @@ export interface Car {
   reg_date: number;
   drivetrain: string;
   warranty: string;
-  [key: string]: string | number | boolean;
+  contract?: Contract;
+  [key: string]: string | number | Contract | undefined;
 }
 
 export interface Customer {
@@ -23,9 +24,9 @@ export interface Customer {
   customer_address_2: string;
   customer_address_3: string;
   customer_address_4: string;
-  contract: string;
   customer_tax_number: string;
-  [key: string]: string;
+  contract?: Contract;
+  [key: string]: string | Contract | undefined;
 }
 
 export interface Company {
@@ -38,7 +39,8 @@ export interface Company {
   company_address_2: string;
   company_address_3: string;
   company_address_4: string;
-  [key: string]: string;
+  contract?: Contract;
+  [key: string]: string | Contract | undefined;
 }
 
 export interface Contract {
