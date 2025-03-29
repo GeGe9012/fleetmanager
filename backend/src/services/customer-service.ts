@@ -72,6 +72,9 @@ const customerService = {
       const updatedCustomer = await prisma.customer.update({
         where: { id: customerId },
         data: newCustomerData,
+        include: {
+          contracts: true,
+        },
       });
       return updatedCustomer;
     } catch (err) {
