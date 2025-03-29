@@ -6,13 +6,19 @@ const validationSchema = Yup.object().shape({
     .required("Please enter the company name!"),
   company_tax_number: Yup.string()
     .required("Please enter the company tax number!")
-    .matches(/^[0-9]+$/, "The tax number can only contain numbers!"),
+    .matches(
+      /^([0-9]+(-[0-9]+)*)$/,
+      "The tax number can only contain numbers!"
+    ),
   contact_phone_number: Yup.string()
-    .matches(/^[0-9]+$/, "The contact phone number can only contain numbers!")
+    .matches(/^\+?[0-9\s-]+$/, "The phone number can only contain numbers!")
     .required("The company contact phone number is required!"),
   reg_number: Yup.string()
     .required("Please enter the company registration number!")
-    .matches(/^[0-9]+$/, "The registration number can only contain numbers!"),
+    .matches(
+      /^([0-9]+(-[0-9]+)*)$/,
+      "The registration number can only contain numbers!"
+    ),
   company_address_2: Yup.string()
     .matches(/^[0-9]+$/, "The ZIP code can only contain numbers!")
     .required("Please enter the company ZIP code!"),

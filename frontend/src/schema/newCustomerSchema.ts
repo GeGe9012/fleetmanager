@@ -8,14 +8,14 @@ const validationSchema = Yup.object().shape({
     .min(2, "The last name must be at least 2 characters long!")
     .required("Please enter your last name!"),
   phone_number: Yup.string()
-    .matches(/^[0-9]+$/, "The phone number can only contain numbers!")
+    .matches(/^\+?[0-9\s-]+$/, "The phone number can only contain numbers!")
     .required("Please enter your phone number!"),
   email: Yup.string()
     .email("Invalid email format!")
     .matches(/^[^@]+@[^@]+\.[^@]+$/, "Please enter a valid email address!")
     .required("Please enter your email address!"),
   customer_tax_number: Yup.string()
-    .matches(/^[0-9]+$/, "The tax number can only contain numbers!")
+    .matches(/^([0-9]+(-[0-9]+)*)$/, "The tax number can only contain numbers!")
     .required("Please enter your tax number!"),
   customer_address_2: Yup.string()
     .matches(/^[0-9]+$/, "The ZIP code can only contain numbers!")
