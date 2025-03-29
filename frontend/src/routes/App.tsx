@@ -20,6 +20,7 @@ import {
   columnKeyMapFleet,
 } from "../constants/columnKeyMaps";
 import { Car, Company, Customer, Contract } from "../interfaces/appInterfaces";
+import UpdateModal from "../components/UpdateModal";
 
 export default function App() {
   const thStyle: object = {
@@ -38,8 +39,11 @@ export default function App() {
   const [queryParams, setQueryParams] = useState<{
     search: { [key: string]: string };
   }>({ search: {} });
-
   const [searchTriggered, setSearchTriggered] = useState<boolean>(false);
+  const [updateModalShow, setUpdateModalShow] = useState<boolean>(false);
+  const [editData, setEditData] = useState<Car | Customer | Company | null>(
+    null
+  );
 
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
@@ -71,7 +75,8 @@ export default function App() {
     setQueryParams({ search: {} });
   }, [activeTab, queryParams, searchTriggered]);
 
-  const sortData = <T extends Record<string, string | number | boolean>>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sortData = <T extends Record<string, any>>(
     data: T[],
     key: keyof T | null,
     direction: "asc" | "desc"
@@ -79,8 +84,30 @@ export default function App() {
     if (!key) return data;
 
     return [...data].sort((a, b) => {
-      const valA = a[key];
-      const valB = b[key];
+      let valA = a[key];
+      let valB = b[key];
+
+      if (activeTab === "fleet") {
+        if (key === "contract_number" || key === "contract_exp") {
+          valA = a.contract?.[key] ?? "";
+          valB = b.contract?.[key] ?? "";
+        }
+
+        if (key === "company") {
+          valA = a.contract?.company_name ?? "";
+          valB = b.contract?.company_name ?? "";
+        }
+      } else if (activeTab === "customers") {
+        if (key === "company") {
+          valA = a.contracts?.[0]?.company_name ?? "";
+          valB = b.contracts?.[0]?.company_name ?? "";
+        }
+
+        if (key === "contract_number" || key === "license_plate") {
+          valA = a.contracts?.[0]?.[key] ?? "";
+          valB = b.contracts?.[0]?.[key] ?? "";
+        }
+      }
 
       if (typeof valA === "number" && typeof valB === "number") {
         return direction === "asc" ? valA - valB : valB - valA;
@@ -150,11 +177,70 @@ export default function App() {
   }
 
   function handleUpdate(id: string) {
-    console.log(id);
+    const dataToEdit =
+      activeTab === "fleet"
+        ? cars.find((car) => car.id === id)
+        : activeTab === "customers"
+          ? customers.find((customer) => customer.id === id)
+          : companies.find((company) => company.id === id);
+
+    if (dataToEdit) {
+      setEditData(dataToEdit);
+      setUpdateModalShow(true);
+    } else {
+      console.error("Data not found");
+    }
+  }
+
+  function isCar(data: Car | Company | Customer): data is Car {
+    return (data as Car).license_plate !== undefined;
+  }
+
+  function isCustomer(data: Car | Company | Customer): data is Customer {
+    return (data as Customer).customer_tax_number !== undefined;
+  }
+
+  function isCompany(data: Car | Company | Customer): data is Company {
+    return (data as Company).company_tax_number !== undefined;
+  }
+
+  function handleSave(updatedData: Car | Company | Customer) {
+    setUpdateModalShow(false);
+
+    if (activeTab === "fleet" && isCar(updatedData)) {
+      const updatedCar: Car = {
+        ...updatedData,
+        contract: updatedData.contract
+          ? updatedData.contract
+          : updatedData.contract,
+      };
+      setCars((prev) =>
+        prev.map((car) => (car.id === updatedCar.id ? updatedCar : car))
+      );
+    } else if (activeTab === "customers" && isCustomer(updatedData)) {
+      setCustomers((prev) =>
+        prev.map((customer) =>
+          customer.id === updatedData.id ? updatedData : customer
+        )
+      );
+    } else if (activeTab === "companies" && isCompany(updatedData)) {
+      setCompanies((prev) =>
+        prev.map((company) =>
+          company.id === updatedData.id ? updatedData : company
+        )
+      );
+    }
   }
 
   return (
     <>
+      <UpdateModal
+        show={updateModalShow}
+        handleClose={() => setUpdateModalShow(false)}
+        data={editData ?? ({} as Car | Customer | Company)}
+        handleSave={handleSave}
+        activeTab={activeTab}
+      />
       {loading ? (
         <div
           style={{
