@@ -10,11 +10,12 @@ export const columnKeyMap: { [key: string]: string } = {
   Drivetrain: "drivetrain",
   Warranty: "warranty",
   Company: "company",
-  Contract: "contract",
-  "Contract duration": "contract_dur",
+  Contract: "contract_number",
+  "Contract(s)": "contract_number",
+  "License Plate(s)": "license_plate",
+  "Contract Expiration Date": "contract_exp",
   "First Name": "first_name",
   "Last Name": "last_name",
-  "Company Name": "company",
   "Phone Number": "phone_number",
   "E-mail": "email",
   Address: "customer_address_1",
@@ -36,9 +37,9 @@ export const columnKeyMapFleet: { [key: number]: string } = {
   7: "reg_date",
   8: "drivetrain",
   9: "warranty",
-  10: "company",
-  11: "contract",
-  12: "contract_dur",
+  10: "company_name",
+  11: "contract_number",
+  12: "contract_exp",
 };
 
 export const columnKeyMapCustomers: { [key: string]: string } = {
