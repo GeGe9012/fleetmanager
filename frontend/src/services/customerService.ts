@@ -35,3 +35,15 @@ export async function deleteCustomer(id: string) {
     throw new Error("Failed to delete customer. Please try again later!");
   }
 }
+
+export async function updateCustomer(updateData: Customer, id: string) {
+  try {
+    const response = await axios.patch(
+      `${BACKEND_URL}/api/customers/${id}`,
+      updateData
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to update customer: ${error}`);
+  }
+}
