@@ -35,3 +35,15 @@ export async function deleteCommpany(id: string) {
     throw new Error("Failed to delete company. Please try again later!");
   }
 }
+
+export async function updateCompany(updateData: Company, id: string) {
+  try {
+    const response = await axios.patch(
+      `${BACKEND_URL}/api/companies/${id}`,
+      updateData
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to update company: ${error}`);
+  }
+}
