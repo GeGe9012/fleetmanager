@@ -99,6 +99,15 @@ const carService = {
           ...carData,
           contract_id: existingCar.contract_id,
         },
+        include: {
+          contract: {
+            select: {
+              company_name: true,
+              contract_number: true,
+              contract_exp: true,
+            },
+          },
+        },
       });
       return updatedCar;
     } catch (err) {
