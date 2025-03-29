@@ -21,6 +21,7 @@ export interface Company {
   company_address_2: string;
   company_address_3: string;
   company_address_4: string;
+  contracts?: Contract[];
 }
 
 export interface Customer {
