@@ -127,6 +127,7 @@ export default function UpdateModal({
           response = await updateCompany(values as Company, data?.id);
         }
         if (response) {
+          console.log("response:", response);
           handleSave(response);
           handleClose();
         }
@@ -152,7 +153,7 @@ export default function UpdateModal({
                 <Form.Control
                   type="text"
                   name="license_plate"
-                  value={formik.values.license_plate}
+                  value={String(formik.values.license_plate)}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={
@@ -168,7 +169,7 @@ export default function UpdateModal({
                 <Form.Label>Make</Form.Label>
                 <Form.Select
                   name="make"
-                  value={formik.values.make}
+                  value={String(formik.values.make)}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={formik.touched.make && !!formik.errors.make}
@@ -190,7 +191,7 @@ export default function UpdateModal({
                 <Form.Control
                   type="text"
                   name="model"
-                  value={formik.values.model}
+                  value={String(formik.values.model)}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={formik.touched.model && !!formik.errors.model}
@@ -221,7 +222,7 @@ export default function UpdateModal({
                 <Form.Label>Color</Form.Label>
                 <Form.Select
                   name="color"
-                  value={formik.values.color}
+                  value={String(formik.values.color)}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={formik.touched.color && !!formik.errors.color}
@@ -270,7 +271,7 @@ export default function UpdateModal({
                 <Form.Control
                   type="text"
                   name="vin"
-                  value={formik.values.vin}
+                  value={String(formik.values.vin)}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={formik.touched.vin && !!formik.errors.vin}
@@ -284,7 +285,7 @@ export default function UpdateModal({
                 <DatePicker
                   selected={
                     formik.values.reg_date
-                      ? new Date(formik.values.reg_date)
+                      ? new Date(String(formik.values.reg_date))
                       : null
                   }
                   onChange={(date) =>
@@ -321,7 +322,7 @@ export default function UpdateModal({
                 <Form.Label>Warranty</Form.Label>
                 <Form.Select
                   name="warranty"
-                  value={formik.values.warranty}
+                  value={String(formik.values.warranty)}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={
