@@ -12,7 +12,7 @@ model Car {
   license_plate String    @unique
   make          String
   model         String
-  model_year    Int
+  model_year    String
   color         String
   fuel_type     String
   vin           String
