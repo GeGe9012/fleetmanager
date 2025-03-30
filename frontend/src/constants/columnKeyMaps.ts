@@ -61,3 +61,11 @@ export const columnKeyMapCompanies: { [key: string]: string } = {
   3: "reg_number",
   4: "company_address_1",
 };
+
+export const columnKeyMapContracts: { [key: string]: string } = {
+  0: "contract_number",
+  1: "company_name",
+  2: "customer_name",
+  3: "license_plate",
+  4: "contract_exp",
+};
