@@ -2,7 +2,7 @@ export interface NewCarData {
   license_plate: string;
   make: string;
   model: string;
-  model_year: number;
+  model_year: string;
   color: string;
   fuel_type: string;
   vin: string;
