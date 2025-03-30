@@ -4,6 +4,32 @@ import prisma from "../db/prisma";
 import { NewContractData } from "../interfaces/serviceInterfaces";
 
 const contractService = {
+  async getAllContracts(filters: Record<string, any> = {}) {
+    console.log(filters)
+    try {
+      const whereClause: Record<string, any> = {};
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          if (value.includes("%")) {
+            whereClause[key] = {
+              contains: value.replace(/%/g, ""),
+              mode: "insensitive",
+            };
+          } else {
+            whereClause[key] = { startsWith: value, mode: "insensitive" };
+          }
+        }
+      });
+      const contracts = await prisma.contract.findMany({ where: whereClause });
+      return contracts;
+    } catch (err) {
+      throw new HttpError(
+        "Something went wrong",
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+
   async createContract(data: NewContractData) {
     try {
       const contractNumber = await generateContractNumber();
@@ -62,6 +88,27 @@ const contractService = {
           HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
         );
       }
+    }
+  },
+
+  async deleteContract(contractId: string) {
+    try {
+      await prisma.car.updateMany({
+        where: { contract_id: contractId },
+        data: { contract_id: null },
+      });
+
+      const deletedContract = await prisma.contract.delete({
+        where: { id: contractId },
+      });
+
+      return deletedContract;
+    } catch (err) {
+      console.error(err);
+      throw new HttpError(
+        "Contract could not be deleted.",
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
+      );
     }
   },
 };
