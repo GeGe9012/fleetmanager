@@ -14,33 +14,47 @@ export default function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto d-flex align-items-center">
             <Nav.Link
-              href="/newcontract"
+              href="/contracttool"
               style={{
                 backgroundColor: "#007bff",
                 color: "white",
                 borderRadius: "5px",
-                marginRight: "15px",
                 marginTop: "1rem",
                 display: "inline-block",
                 fontWeight: "bold",
                 fontSize: "1.2rem",
-                textDecoration: "none"
+                textDecoration: "none",
+                paddingLeft: "1rem",
+                paddingRight: "1rem",
               }}
             >
-              Create New Contract
+              Contracts
             </Nav.Link>
 
-            <NavDropdown title="Tools" id="basic-nav-dropdown" className="custom-dropdown">
+            <NavDropdown
+              title="Tools"
+              id="basic-nav-dropdown"
+              className="custom-dropdown ms-3"
+            >
               <NavDropdown.Item href="/newcar">Add new car</NavDropdown.Item>
-              <NavDropdown.Item href="/newcustomer">Add new customer</NavDropdown.Item>
-              <NavDropdown.Item href="/newcompany">Add new company</NavDropdown.Item>
-              <NavDropdown.Item href="/addingtools">Adding Tools</NavDropdown.Item>
+              <NavDropdown.Item href="/newcustomer">
+                Add new customer
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/newcompany">
+                Add new company
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/othertools">
+                Other tools
+              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="https://aboutme-mg.vercel.app/">About me</NavDropdown.Item>
+              <NavDropdown.Item href="https://aboutme-mg.vercel.app/">
+                About me
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
+
       <style>
         {`
           .custom-dropdown .dropdown-toggle {
