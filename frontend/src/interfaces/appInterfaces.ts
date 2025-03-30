@@ -44,6 +44,7 @@ export interface Company {
 }
 
 export interface Contract {
+  id: string;
   contract_number: string;
   license_plate: string;
   customer_name: string;
