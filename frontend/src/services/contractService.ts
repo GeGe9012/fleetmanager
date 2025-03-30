@@ -2,6 +2,18 @@ import axios from "axios";
 import { BACKEND_URL } from "../constants/backend";
 import { Contract } from "../interfaces/serviceInterfaces";
 
+export async function getAllContracts(queryParams = {}) {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/contracts`, {
+      params: queryParams,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("An error occurred while fetching contracts:", error);
+    throw new Error("Failed to fetch contracts. Please try again later!");
+  }
+}
+
 export async function createContract(contract: Contract) {
   try {
     const response = await axios.post(`${BACKEND_URL}/api/contracts`, {
@@ -26,3 +38,25 @@ export async function createContract(contract: Contract) {
     }
   }
 }
+
+export async function deleteContract(id: string) {
+  try {
+    const response = await axios.delete(`${BACKEND_URL}/api/contracts/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("An error occurred while deleting contract:", error);
+    throw new Error("Failed to delete contract. Please try again later!");
+  }
+}
+
+// export async function updateCar(updateData: Car, id: string) {
+//   try {
+//     const response = await axios.patch(
+//       `${BACKEND_URL}/api/cars/${id}`,
+//       updateData
+//     );
+//     return response.data;
+//   } catch (error) {
+//     throw new Error(`Failed to update car: ${error}`);
+//   }
+// }
