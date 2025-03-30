@@ -6,31 +6,51 @@ import { NewCarData } from "../interfaces/serviceInterfaces";
 const carService = {
   async getAllCars(filters: Record<string, any> = {}) {
     try {
-      const whereClause: Record<string, any> = {};
+      const whereClause: Record<string, any> = {
+        OR: [],
+      };
+
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
-          if (["model_year", "reg_date"].includes(key)) {
-            const numValue = parseInt(value, 10);
-            if (!isNaN(numValue)) {
-              const min = numValue * Math.pow(10, 4 - value.length);
-              const max = (numValue + 1) * Math.pow(10, 4 - value.length);
-              whereClause[key] = { gte: min, lt: max };
-            }
-          } else {
-            if (value.includes("%")) {
-              whereClause[key] = {
-                contains: value.replace(/%/g, ""),
+          if (
+            [
+              "license_plate",
+              "make",
+              "model",
+              "model_year",
+              "color",
+              "fuel_type",
+              "vin",
+              "reg_date",
+              "drivetrain",
+              "warranty",
+            ].includes(key)
+          ) {
+            whereClause.OR.push({
+              [key]: {
+                startsWith: value,
                 mode: "insensitive",
-              };
-            } else {
-              whereClause[key] = { startsWith: value, mode: "insensitive" };
-            }
+              },
+            });
+          }
+
+          if (
+            ["contract_number", "company_name", "contract_exp"].includes(key)
+          ) {
+            whereClause.OR.push({
+              contract: {
+                [key]: {
+                  startsWith: value,
+                  mode: "insensitive",
+                },
+              },
+            });
           }
         }
       });
 
       const cars = await prisma.car.findMany({
-        where: whereClause,
+        ...(whereClause.OR.length > 0 ? { where: whereClause } : {}),
         include: {
           contract: {
             include: {
@@ -40,6 +60,7 @@ const carService = {
           },
         },
       });
+
       return cars;
     } catch (err) {
       throw new HttpError(
