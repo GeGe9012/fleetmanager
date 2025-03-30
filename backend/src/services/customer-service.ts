@@ -6,21 +6,59 @@ import { NewCustomerData } from "../interfaces/serviceInterfaces";
 const customerService = {
   async getAllCustomers(filters: Record<string, any> = {}) {
     try {
-      const whereClause: Record<string, any> = {};
+      const whereClause: Record<string, any> = { OR: [] };
+
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
-          if (value.includes("%")) {
-            whereClause[key] = {
-              contains: value.replace(/%/g, ""),
-              mode: "insensitive",
-            };
-          } else {
-            whereClause[key] = { startsWith: value, mode: "insensitive" };
+          const filterValue = value.includes("%")
+            ? {
+                contains: value.replace(/%/g, ""),
+                mode: "insensitive",
+              }
+            : {
+                startsWith: value,
+                mode: "insensitive",
+              };
+          if (
+            [
+              "first_name",
+              "last_name",
+              "phone_number",
+              "email",
+              "customer_address_1",
+              "customer_address_2",
+              "customer_address_3",
+              "customer_address_4",
+              "customer_tax_number",
+            ].includes(key)
+          ) {
+            whereClause.OR.push({
+              [key]: filterValue,
+            });
+          }
+
+          if (key === "contract") {
+            key = "contract_number";
+          } else if (key === "company") {
+            key = "company_name";
+          }
+
+          if (
+            ["contract_number", "company_name", "license_plate"].includes(key)
+          ) {
+            whereClause.OR.push({
+              contracts: {
+                some: {
+                  [key]: filterValue,
+                },
+              },
+            });
           }
         }
       });
+
       const customers = await prisma.customer.findMany({
-        where: whereClause,
+        where: whereClause.OR.length > 0 ? whereClause : undefined,
         include: {
           contracts: {
             include: {
@@ -30,6 +68,7 @@ const customerService = {
           },
         },
       });
+
       return customers;
     } catch (err) {
       throw new HttpError(
