@@ -7,8 +7,8 @@ import NotFoundPage from "./routes/NotFoundPage";
 import NewCustomer from "./routes/NewCustomer";
 import NewCompany from "./routes/NewCompany";
 import MainLayout from "./layouts/MainLayout";
-import NewContract from "./routes/NewContract";
-import Addingtools from "./routes/AddingTools";
+import ContractTool from "./routes/ContractTool";
+import OtherTools from "./routes/OtherTools";
 
 const router = createBrowserRouter([
   {
@@ -32,12 +32,12 @@ const router = createBrowserRouter([
         element: <NewCompany />,
       },
       {
-        path: "newcontract",
-        element: <NewContract />,
+        path: "contracttool",
+        element: <ContractTool />,
       },
       {
-        path: "addingtools",
-        element: <Addingtools />,
+        path: "othertools",
+        element: <OtherTools />,
       },
       {
         path: "*",
