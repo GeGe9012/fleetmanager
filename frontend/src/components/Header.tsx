@@ -8,6 +8,15 @@ export default function Header() {
     <Navbar expand="lg">
       <Container>
         <Navbar.Brand href="/" className="fs-1">
+          <img
+            src="./sport-car.png"
+            alt="TFM logo"
+            style={{
+              width: "6rem",
+              height: "auto",
+              marginRight: "2rem",
+            }}
+          />
           The Fleet Manager
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
