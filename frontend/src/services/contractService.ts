@@ -48,15 +48,3 @@ export async function deleteContract(id: string) {
     throw new Error("Failed to delete contract. Please try again later!");
   }
 }
-
-// export async function updateCar(updateData: Car, id: string) {
-//   try {
-//     const response = await axios.patch(
-//       `${BACKEND_URL}/api/cars/${id}`,
-//       updateData
-//     );
-//     return response.data;
-//   } catch (error) {
-//     throw new Error(`Failed to update car: ${error}`);
-//   }
-// }
