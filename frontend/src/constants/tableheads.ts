@@ -33,4 +33,3 @@ export const tableHeadsCompanies: string[] = [
   "Registration Number",
   "Company Address",
 ];
-

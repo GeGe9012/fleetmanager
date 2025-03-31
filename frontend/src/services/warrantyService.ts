@@ -21,7 +21,10 @@ export async function createWarranty(warranty: { name: string }) {
     if (axios.isAxiosError(error)) {
       if (error.response && error.response.status === 400) {
         const errorMessage = error.response?.data?.message;
-        if (errorMessage && errorMessage.includes("Warranty term already exists!")) {
+        if (
+          errorMessage &&
+          errorMessage.includes("Warranty term already exists!")
+        ) {
           console.error("Warranty term already exists:", error);
           throw error;
         }

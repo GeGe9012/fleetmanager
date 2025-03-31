@@ -127,7 +127,6 @@ export default function UpdateModal({
           response = await updateCompany(values as Company, data?.id);
         }
         if (response) {
-          console.log("response:", response);
           handleSave(response);
           handleClose();
         }

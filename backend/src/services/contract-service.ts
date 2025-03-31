@@ -5,7 +5,6 @@ import { NewContractData } from "../interfaces/serviceInterfaces";
 
 const contractService = {
   async getAllContracts(filters: Record<string, any> = {}) {
-    console.log(filters)
     try {
       const whereClause: Record<string, any> = {};
       Object.entries(filters).forEach(([key, value]) => {

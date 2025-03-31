@@ -19,7 +19,6 @@ export default function NewCustomer() {
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      console.log("Submitting values:", values);
       try {
         const response = await createCustomer(values);
         if (!response) {

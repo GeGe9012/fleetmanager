@@ -56,7 +56,6 @@ export default function ContractTool() {
     onSubmit: async (values, { resetForm, setFieldError }) => {
       try {
         const response = await createContract(values);
-        console.log("Response from createContract:", response);
         if (!response) {
           console.error("An error occurred during data upload.");
         } else {

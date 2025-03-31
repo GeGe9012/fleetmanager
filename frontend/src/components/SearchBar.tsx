@@ -5,7 +5,7 @@ interface SearchBarProps {
   SearchBarSum: number;
   queryParams: { search: { [key: string]: string } };
   columnKeyForSearchBar: { [key: number]: string };
-  setQueryParams: (params: { search: { [key: string]: string }}) => void;
+  setQueryParams: (params: { search: { [key: string]: string } }) => void;
   setSearchTriggered: (value: boolean) => void;
 }
 
@@ -55,12 +55,11 @@ export default function SearchBar({
       const updatedSearchParams = Object.fromEntries(
         Object.entries(searchValues).filter(([, value]) => value.trim() !== "")
       );
-  
+
       setQueryParams({ search: updatedSearchParams });
       setSearchTriggered(true);
     }
   };
-  
 
   return (
     <tr>
@@ -90,8 +89,7 @@ export default function SearchBar({
           />
         </th>
       ))}
-      <th>
-      </th>
+      <th></th>
     </tr>
   );
 }

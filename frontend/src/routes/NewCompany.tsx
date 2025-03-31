@@ -18,7 +18,6 @@ export default function NewCompany() {
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      console.log("Submitting values:", values);
       try {
         const response = await createCompany(values);
         if (!response) {
