@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "build": "tsc",
+    "build": "yarn babel src --out-dir build",
     "start": "node dist/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
@@ -13,6 +13,8 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.27.0",
+    "@babel/preset-env": "^7.26.9",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.14",
