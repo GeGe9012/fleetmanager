@@ -3,11 +3,11 @@ export interface Car {
   license_plate: string;
   make: string;
   model: string;
-  model_year: number;
+  model_year: string;
   color: string;
   fuel_type: string;
   vin: string;
-  reg_date: number;
+  reg_date: string;
   drivetrain: string;
   warranty: string;
   contract?: Contract;

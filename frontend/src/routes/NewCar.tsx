@@ -38,11 +38,11 @@ export default function NewCar() {
       license_plate: "",
       make: "",
       model: "",
-      model_year: 0,
+      model_year: "",
       color: "",
       fuel_type: "",
       vin: "",
-      reg_date: 0,
+      reg_date: "",
       drivetrain: "",
       warranty: "",
     },
@@ -139,13 +139,13 @@ export default function NewCar() {
               <DatePicker
                 selected={
                   formik.values.model_year
-                    ? new Date(formik.values.model_year, 0, 1)
+                    ? new Date(Number(formik.values.model_year), 0, 1)
                     : null
                 }
                 onChange={(date) =>
                   formik.setFieldValue(
                     "model_year",
-                    date ? date.getFullYear() : 0
+                    date ? String(date.getFullYear()) : ""
                   )
                 }
                 showYearPicker
