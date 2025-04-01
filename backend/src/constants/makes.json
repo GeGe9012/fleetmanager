@@ -1,0 +1,102 @@
+[
+  {
+    "id": "044ebb2e-45a3-4bee-856d-a7cd8fc5a850",
+    "name": "tesla"
+  },
+  {
+    "id": "22b73341-d497-4a12-932b-68797d449fff",
+    "name": "hyundai"
+  },
+  {
+    "id": "34412b41-7e94-487f-abe0-cc69b7f3f804",
+    "name": "volvo"
+  },
+  {
+    "id": "4601ce97-af3d-4234-9957-3256f1c23bda",
+    "name": "volkswagen"
+  },
+  {
+    "id": "4d37a4d6-ba0b-494c-859e-308311bff800",
+    "name": "opel"
+  },
+  {
+    "id": "54c41ee3-41fa-49a6-b401-b15161d832b7",
+    "name": "seat"
+  },
+  {
+    "id": "69646bf7-8ce3-4b8c-a37e-ca62970b1695",
+    "name": "kia"
+  },
+  {
+    "id": "6bf1324c-c134-49be-98fd-4741a42bf025",
+    "name": "citroën"
+  },
+  {
+    "id": "6ebb5161-c57f-41df-9eaf-968badf0e4cb",
+    "name": "bmw"
+  },
+  {
+    "id": "7cade839-0fa8-411d-90f5-734dd983fffc",
+    "name": "fiat"
+  },
+  {
+    "id": "81e1fc03-bb03-4ae4-b4ea-40189e84e5f5",
+    "name": "nissan"
+  },
+  {
+    "id": "8ff3ed28-e4e7-4dea-b3d3-07b9bf7cdce3",
+    "name": "dacia"
+  },
+  {
+    "id": "91dc2722-1f85-456c-a48c-4364f7191dd8",
+    "name": "suzuki"
+  },
+  {
+    "id": "a35d07e9-5994-4285-b3ec-43218a7ed30f",
+    "name": "audi"
+  },
+  {
+    "id": "a939761e-6fb5-4537-b60b-b024b0ec6c75",
+    "name": "lexus"
+  },
+  {
+    "id": "b3319694-522c-4fc5-ae9a-ac8298f30caf",
+    "name": "land rover"
+  },
+  {
+    "id": "b5dc96c7-3223-4a88-87f5-e4721827f7ea",
+    "name": "skoda"
+  },
+  {
+    "id": "bb6d8d4b-c19c-4e07-b99e-b3ffe5faaecd",
+    "name": "ford"
+  },
+  {
+    "id": "c00a2216-dfc2-42b6-8fa9-161d71be223e",
+    "name": "renault"
+  },
+  {
+    "id": "c540a642-e5c3-4b7e-9387-2a0cf2de35bb",
+    "name": "peugeot"
+  },
+  {
+    "id": "ce146846-84c1-4576-8874-9f746c0e163c",
+    "name": "porsche"
+  },
+  {
+    "id": "d67b9824-4b85-4070-a825-fe93d1868a48",
+    "name": "mercedes-benz"
+  },
+  {
+    "id": "ee108fac-0e50-4b8c-bad0-fe2b4e93d558",
+    "name": "jaguar"
+  },
+  {
+    "id": "fb3c0492-9daf-4f84-bf25-7b73f002f67e",
+    "name": "mini"
+  },
+  {
+    "id": "fc0ff643-621e-42c2-aa93-172c56887995",
+    "name": "toyota"
+  }
+]

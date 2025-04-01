@@ -1,0 +1,46 @@
+[
+  {
+    "id": "051784f2-bdfd-40a2-aa73-b7420fa60f81",
+    "company": "Delta Kft.",
+    "company_tax_number": "43218765-4-78",
+    "contact_phone_number": "309876543",
+    "reg_number": "04-05-678901",
+    "company_address_1": "Japan",
+    "company_address_2": "43245",
+    "company_address_3": "Tokyo",
+    "company_address_4": "Mitsubishi st. 6000"
+  },
+  {
+    "id": "5303120c-19b8-42ae-ba8d-793c960ff8ab",
+    "company": "Gamma Bt.",
+    "company_tax_number": "56781234-3-56",
+    "contact_phone_number": "301234567",
+    "reg_number": "03-04-567890",
+    "company_address_1": "Hungary",
+    "company_address_2": "9000",
+    "company_address_3": "Szombathely",
+    "company_address_4": "Ady Endre u. 30"
+  },
+  {
+    "id": "572d113d-b4e5-4b37-a93c-c768360d85c2",
+    "company": "Alpha Kft.",
+    "company_tax_number": "12345678-1-12",
+    "contact_phone_number": "201234567",
+    "reg_number": "01-02-345678",
+    "company_address_1": "Hungary",
+    "company_address_2": "1011",
+    "company_address_3": "Budapest",
+    "company_address_4": "Virág u. 900"
+  },
+  {
+    "id": "776daff0-bd16-4818-99b0-b2fae06462e1",
+    "company": "Beta Zrt.",
+    "company_tax_number": "87654321-2-34",
+    "contact_phone_number": "209876543",
+    "reg_number": "02-03-456789",
+    "company_address_1": "Hungary",
+    "company_address_2": "4000",
+    "company_address_3": "Nyíregyháza",
+    "company_address_4": "Szita u. 545"
+  }
+]

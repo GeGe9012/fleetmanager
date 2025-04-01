@@ -1,0 +1,98 @@
+[
+  {
+    "id": "04d67590-dff5-49b3-a436-efd7503dad9e",
+    "first_name": "Wojciech",
+    "last_name": "Nowak",
+    "phone_number": "+36 99 2357 62326",
+    "email": "w.nowak@fakemail.com",
+    "customer_address_1": "Poland",
+    "customer_address_2": "12134",
+    "customer_address_3": "Warszawa",
+    "customer_address_4": "Ul. Krakowska 8",
+    "customer_tax_number": "1797876230-1-61"
+  },
+  {
+    "id": "2b635135-5784-4368-bb95-1d90283865a0",
+    "first_name": "Pedro",
+    "last_name": "Garcia",
+    "phone_number": "+36 77 6472 50416",
+    "email": "pedro.garcia@fakemail.com",
+    "customer_address_1": "Spain",
+    "customer_address_2": "32323",
+    "customer_address_3": "Madrid",
+    "customer_address_4": "Noche st. 5454",
+    "customer_tax_number": "822678760-1-61"
+  },
+  {
+    "id": "4c3421cc-d566-4c94-be31-d54d5d8f5730",
+    "first_name": "Maximilian ",
+    "last_name": "Schneider",
+    "phone_number": "+36 345 5287 7742",
+    "email": "max.schneider@mockemail.com",
+    "customer_address_1": "Germany",
+    "customer_address_2": "803",
+    "customer_address_3": "München",
+    "customer_address_4": "Hauptstraße 980",
+    "customer_tax_number": "1754242154-3-35"
+  },
+  {
+    "id": "643122bc-f9b0-4708-aad3-c36a58b7263c",
+    "first_name": "Pierre ",
+    "last_name": "Dubois",
+    "phone_number": "+36 324 1758 3794",
+    "email": "pierre@dubois.fr",
+    "customer_address_1": "France",
+    "customer_address_2": "75055",
+    "customer_address_3": "Paris",
+    "customer_address_4": "Rue de la République 255",
+    "customer_tax_number": "623743960-1-21"
+  },
+  {
+    "id": "927c372a-5289-4dcf-af1d-0e932e4cafca",
+    "first_name": "Jane",
+    "last_name": "Williams",
+    "phone_number": "+36 66 2540 8852",
+    "email": "jane.williams@example.com",
+    "customer_address_1": "United States",
+    "customer_address_2": "44632",
+    "customer_address_3": "Phoenix",
+    "customer_address_4": "Oak Ave 329",
+    "customer_tax_number": "232373960-1-21"
+  },
+  {
+    "id": "a44904cc-ef82-4115-ac38-39cc7420e350",
+    "first_name": "Matthew",
+    "last_name": "Thomas",
+    "phone_number": "+36 33 6472 5041",
+    "email": "matthew.thomas@testmail.com",
+    "customer_address_1": "United States",
+    "customer_address_2": "71514",
+    "customer_address_3": "Philadelphia",
+    "customer_address_4": "Broadway 426",
+    "customer_tax_number": "479782760-1-61"
+  },
+  {
+    "id": "b169be3c-9275-4f03-bfcc-a086e78c45c2",
+    "first_name": "Daniel",
+    "last_name": "Davis",
+    "phone_number": "+36 44 2317 6232",
+    "email": "daniel.davis@fakedomain.com",
+    "customer_address_1": "United Kingdom",
+    "customer_address_2": "55737",
+    "customer_address_3": "London",
+    "customer_address_4": "Baker Street 666",
+    "customer_tax_number": "317869289-1-86"
+  },
+  {
+    "id": "dc3768da-c275-4935-8abe-e7448336d987",
+    "first_name": "Elek",
+    "last_name": "Példa",
+    "phone_number": "+36 55 5287 77427",
+    "email": "pelda.elek@minta.hu",
+    "customer_address_1": "Hungary",
+    "customer_address_2": "55555",
+    "customer_address_3": "Simagöröngyös",
+    "customer_address_4": "Sikátor u. 5",
+    "customer_tax_number": "4797874360-1-61"
+  }
+]

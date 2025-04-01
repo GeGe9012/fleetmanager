@@ -1,0 +1,156 @@
+[
+  {
+    "id": "25a188f6-60c8-42fe-9da9-71086fcd8f3a",
+    "company_id": "776daff0-bd16-4818-99b0-b2fae06462e1",
+    "car_id": "5ff0d1fe-7f5b-47b4-8f4f-3a604b625b2e",
+    "customer_id": "4c3421cc-d566-4c94-be31-d54d5d8f5730",
+    "company_name": "Beta Zrt.",
+    "contract_exp": "2026.06.24",
+    "contract_number": "2025TFM014",
+    "customer_name": "Maximilian  Schneider",
+    "license_plate": "ECAR-03"
+  },
+  {
+    "id": "2ac5a818-d846-4636-af71-8f113cbdf8fc",
+    "company_id": "572d113d-b4e5-4b37-a93c-c768360d85c2",
+    "car_id": "b462bf3f-d52a-4a6e-acab-ee97bb5a527a",
+    "customer_id": "927c372a-5289-4dcf-af1d-0e932e4cafca",
+    "company_name": "Alpha Kft.",
+    "contract_exp": "2026.12.16",
+    "contract_number": "2025TFM002",
+    "customer_name": "Jane Williams",
+    "license_plate": "FGG-556"
+  },
+  {
+    "id": "2ec67df9-95fc-4da1-bc84-b43d1c19198e",
+    "company_id": "5303120c-19b8-42ae-ba8d-793c960ff8ab",
+    "car_id": "c3452d6c-ba32-44da-bf96-15654a3b75c8",
+    "customer_id": "04d67590-dff5-49b3-a436-efd7503dad9e",
+    "company_name": "Gamma Bt.",
+    "contract_exp": "2025.11.12",
+    "contract_number": "2025TFM011",
+    "customer_name": "Wojciech Nowak",
+    "license_plate": "SUM-675"
+  },
+  {
+    "id": "3f82f660-f62d-4be1-969b-4f6c34584f51",
+    "company_id": "572d113d-b4e5-4b37-a93c-c768360d85c2",
+    "car_id": "9ec134b5-a7ca-40df-93d0-88bc0beefb76",
+    "customer_id": "dc3768da-c275-4935-8abe-e7448336d987",
+    "company_name": "Alpha Kft.",
+    "contract_exp": "2026.01.21",
+    "contract_number": "2025TFM001",
+    "customer_name": "Elek Példa",
+    "license_plate": "TTZ-456"
+  },
+  {
+    "id": "826a970b-6f7b-4783-a508-86f9eff78821",
+    "company_id": "776daff0-bd16-4818-99b0-b2fae06462e1",
+    "car_id": "47e82fa5-152e-45e1-82f1-0c29bada66d0",
+    "customer_id": "643122bc-f9b0-4708-aad3-c36a58b7263c",
+    "company_name": "Beta Zrt.",
+    "contract_exp": "2029.04.24",
+    "contract_number": "2025TFM003",
+    "customer_name": "Pierre  Dubois",
+    "license_plate": "LEON-07"
+  },
+  {
+    "id": "8984b11a-a0a2-4a4a-9050-873c19b25679",
+    "company_id": "572d113d-b4e5-4b37-a93c-c768360d85c2",
+    "car_id": "8c75a80e-01d2-4138-bf12-6cbe2f05c8f7",
+    "customer_id": "927c372a-5289-4dcf-af1d-0e932e4cafca",
+    "company_name": "Alpha Kft.",
+    "contract_exp": "2026.02.17",
+    "contract_number": "2025TFM013",
+    "customer_name": "Jane Williams",
+    "license_plate": "GHM-678"
+  },
+  {
+    "id": "9ce478b6-7f7b-4f58-98a1-79bbe26de644",
+    "company_id": "776daff0-bd16-4818-99b0-b2fae06462e1",
+    "car_id": "8886d359-fdd8-493e-bb69-1a80cb6b38b1",
+    "customer_id": "4c3421cc-d566-4c94-be31-d54d5d8f5730",
+    "company_name": "Beta Zrt.",
+    "contract_exp": "2030.02.12",
+    "contract_number": "2025TFM008",
+    "customer_name": "Maximilian  Schneider",
+    "license_plate": "TAD-560"
+  },
+  {
+    "id": "bd05ca5e-ba6a-43d4-b617-a808072303a3",
+    "company_id": "572d113d-b4e5-4b37-a93c-c768360d85c2",
+    "car_id": "e02c07dd-3d82-47a6-8e83-deb82453936b",
+    "customer_id": "dc3768da-c275-4935-8abe-e7448336d987",
+    "company_name": "Alpha Kft.",
+    "contract_exp": "2028.03.08",
+    "contract_number": "2025TFM004",
+    "customer_name": "Elek Példa",
+    "license_plate": "AEAE-656"
+  },
+  {
+    "id": "c214fdcb-279d-4dec-9535-6aa9de07e8bb",
+    "company_id": "572d113d-b4e5-4b37-a93c-c768360d85c2",
+    "car_id": "7040fc76-843f-4618-87d8-c02d9594c5b1",
+    "customer_id": "2b635135-5784-4368-bb95-1d90283865a0",
+    "company_name": "Alpha Kft.",
+    "contract_exp": "2027.05.12",
+    "contract_number": "2025TFM012",
+    "customer_name": "Pedro Garcia",
+    "license_plate": "SUPER-1"
+  },
+  {
+    "id": "cc794e01-cd6e-4a66-a32f-b40eef36959d",
+    "company_id": "572d113d-b4e5-4b37-a93c-c768360d85c2",
+    "car_id": "1d2ce334-4dc6-4833-aae8-efe73635813b",
+    "customer_id": "2b635135-5784-4368-bb95-1d90283865a0",
+    "company_name": "Alpha Kft.",
+    "contract_exp": "2026.09.15",
+    "contract_number": "2025TFM007",
+    "customer_name": "Pedro Garcia",
+    "license_plate": "AATH-210"
+  },
+  {
+    "id": "ce306fd6-36f2-4e3f-bdfd-b9784e42e7ea",
+    "company_id": "5303120c-19b8-42ae-ba8d-793c960ff8ab",
+    "car_id": "84848e3f-d2b5-4122-8e03-db30a9f04206",
+    "customer_id": "04d67590-dff5-49b3-a436-efd7503dad9e",
+    "company_name": "Gamma Bt.",
+    "contract_exp": "2025.11.12",
+    "contract_number": "2025TFM005",
+    "customer_name": "Wojciech Nowak",
+    "license_plate": "VIT-888"
+  },
+  {
+    "id": "dd7aa509-8eeb-4f99-9852-e845fc1ddf28",
+    "company_id": "051784f2-bdfd-40a2-aa73-b7420fa60f81",
+    "car_id": "61657405-2809-4cbe-b335-783f3cefd282",
+    "customer_id": "b169be3c-9275-4f03-bfcc-a086e78c45c2",
+    "company_name": "Delta Kft.",
+    "contract_exp": "2026.12.17",
+    "contract_number": "2025TFM006",
+    "customer_name": "Daniel Davis",
+    "license_plate": "FZU-666"
+  },
+  {
+    "id": "dff5f35d-61e5-48e8-b113-234057e3c1b3",
+    "company_id": "572d113d-b4e5-4b37-a93c-c768360d85c2",
+    "car_id": "26e3dc60-a061-4dc5-855a-fb80b0112259",
+    "customer_id": "dc3768da-c275-4935-8abe-e7448336d987",
+    "company_name": "Alpha Kft.",
+    "contract_exp": "2025.10.15",
+    "contract_number": "2025TFM009",
+    "customer_name": "Elek Példa",
+    "license_plate": "VSV-567"
+  },
+  {
+    "id": "f23eabd2-0d60-459b-8fb4-59bfa10c2db7",
+    "company_id": "5303120c-19b8-42ae-ba8d-793c960ff8ab",
+    "car_id": "66ed029e-1aca-404f-affd-b24f6cb311b1",
+    "customer_id": "04d67590-dff5-49b3-a436-efd7503dad9e",
+    "company_name": "Gamma Bt.",
+    "contract_exp": "2027.05.11",
+    "contract_number": "2025TFM010",
+    "customer_name": "Wojciech Nowak",
+    "license_plate": "BRT-556"
+  }
+]
