@@ -14,12 +14,12 @@ const resetDbService = {
   async resetDatabase() {
     try {
       await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-        // await tx.warranty.deleteMany();
-        // await tx.warranty.createMany({ data: warranties });
-        // await tx.color.deleteMany();
-        // await tx.color.createMany({ data: colors });
-        // await tx.make.deleteMany();
-        // await tx.make.createMany({ data: makes });
+        await tx.warranty.deleteMany();
+        await tx.warranty.createMany({ data: warranties });
+        await tx.color.deleteMany();
+        await tx.color.createMany({ data: colors });
+        await tx.make.deleteMany();
+        await tx.make.createMany({ data: makes });
         await tx.car.deleteMany();
         await tx.car.createMany({ data: cars });
         await tx.company.deleteMany();
