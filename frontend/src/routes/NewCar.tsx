@@ -25,6 +25,10 @@ export default function NewCar() {
       const colorsData = await getAllColors();
       const warrantyTermsData = await getAllWarranties();
       const carMakesData = await getAllMakes();
+      warrantyTermsData.sort(
+        (a: { name: string }, b: { name: string }) =>
+          parseInt(a.name) - parseInt(b.name)
+      );
       setColors(colorsData);
       setWarrantyTerms(warrantyTermsData);
       setCarMakes(carMakesData);
