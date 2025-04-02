@@ -2,9 +2,14 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "../components/Header";
 import { Stack } from "react-bootstrap";
+import { resetDatabase } from "../services/resetDbService";
 
 export default function MainLayout() {
   const location = useLocation();
+
+  useEffect(() => {
+    resetDatabase();
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);

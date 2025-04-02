@@ -9,9 +9,6 @@ import NewCompany from "./routes/NewCompany";
 import MainLayout from "./layouts/MainLayout";
 import ContractTool from "./routes/ContractTool";
 import OtherTools from "./routes/OtherTools";
-import { resetDatabase } from "./services/resetDbService";
-
-resetDatabase()
 
 const router = createBrowserRouter([
   {
