@@ -10,7 +10,13 @@ export default function MainLayout() {
   useEffect(() => {
     const resetDb = async () => {
       try {
-        await resetDatabase();
+        setTimeout(async () => {
+          try {
+            await resetDatabase();
+          } catch (error) {
+            console.error("Failed to reset database:", error);
+          }
+        }, 2000);
       } catch (error) {
         console.error("Failed to reset database:", error);
       }
