@@ -1,12 +1,11 @@
+import axios from "axios";
 import { BACKEND_URL } from "../constants/backend";
 
-export function resetDatabase() {
-  const url = `${BACKEND_URL}/api/resetdb`;
-
-  const success = navigator.sendBeacon(url);
-
-  if (!success) {
-    console.error("Failed to send reset database request.");
+export async function resetDatabase() {
+  try {
+    await axios.post(`${BACKEND_URL}/api/resetdb`);
+  } catch (error) {
+    console.error("Failed to send reset database request.", error);
     throw new Error("Failed to reset database.");
   }
 }
