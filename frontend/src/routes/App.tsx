@@ -21,7 +21,6 @@ import {
 } from "../constants/columnKeyMaps";
 import { Car, Company, Customer, Contract } from "../interfaces/appInterfaces";
 import UpdateModal from "../components/UpdateModal";
-import { resetDatabase } from "../services/resetDbService";
 
 export default function App() {
   const thStyle: object = {
@@ -45,41 +44,12 @@ export default function App() {
   const [editData, setEditData] = useState<Car | Customer | Company | null>(
     null
   );
-  const [isReseted, setIsReseted] = useState<boolean>(false);
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
     direction: "asc" | "desc";
   }>({ key: null, direction: "asc" });
 
   useEffect(() => {
-    const resetDb = async () => {
-      try {
-        setTimeout(async () => {
-          try {
-            await resetDatabase();
-          } catch (error) {
-            console.error("Failed to reset database:", error);
-          }
-        }, 1000);
-      } catch (error) {
-        console.error("Failed to reset database:", error);
-      }
-    };
-    resetDb();
-  }, []);
-
-  useEffect(() => {
-    if (!isReseted) {
-      const resetDb = async () => {
-        try {
-          await resetDatabase();
-        } catch (error) {
-          console.error("Failed to reset database:", error);
-        }
-      };
-      resetDb();
-      setIsReseted(true)
-    }
 
     if (!searchTriggered) return;
     const isSearchEmpty = Object.keys(queryParams.search).length === 0;
@@ -103,7 +73,6 @@ export default function App() {
     }
     setSearchTriggered(false);
     setQueryParams({ search: {} });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, queryParams, searchTriggered]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

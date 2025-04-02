@@ -30,6 +30,7 @@ const resetDbService = {
         await tx.contract.createMany({ data: contracts });
       });
     } catch (error) {
+      console.log(error)
       throw new HttpError(
         "Failed to reset database.",
         HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR
