@@ -8,7 +8,14 @@ export default function MainLayout() {
   const location = useLocation();
 
   useEffect(() => {
-    resetDatabase();
+    const resetDb = async () => {
+      try {
+        await resetDatabase();
+      } catch (error) {
+        console.error("Failed to reset database:", error);
+      }
+    };
+    resetDb();
   }, []);
 
   useEffect(() => {
