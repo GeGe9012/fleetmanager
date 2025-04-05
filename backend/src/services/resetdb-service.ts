@@ -11,10 +11,9 @@ import contracts from "../constants/contracts.json";
 import { Prisma } from "@prisma/client";
 
 const resetDbService = {
-  async resetDatabase() {
+  async resetDatabase(req, res) {
     try {
-      await prisma.warranty.deleteMany();
-      await prisma.warranty.createMany({ data: warranties });
+      res.status(200).send("Test endpoint works.");
     } catch (error) {
       throw new HttpError(
         "Failed to reset database.",
