@@ -13,22 +13,20 @@ import { Prisma } from "@prisma/client";
 const resetDbService = {
   async resetDatabase() {
     try {
-      await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-        await tx.warranty.deleteMany();
-        await tx.warranty.createMany({ data: warranties });
-        await tx.color.deleteMany();
-        await tx.color.createMany({ data: colors });
-        await tx.make.deleteMany();
-        await tx.make.createMany({ data: makes });
-        await tx.car.deleteMany();
-        await tx.car.createMany({ data: cars });
-        await tx.company.deleteMany();
-        await tx.company.createMany({ data: companies });
-        await tx.customer.deleteMany();
-        await tx.customer.createMany({ data: customers });
-        await tx.contract.deleteMany();
-        await tx.contract.createMany({ data: contracts });
-      });
+      await prisma.warranty.deleteMany();
+      await prisma.warranty.createMany({ data: warranties });
+      await prisma.color.deleteMany();
+      await prisma.color.createMany({ data: colors });
+      await prisma.make.deleteMany();
+      await prisma.make.createMany({ data: makes });
+      await prisma.car.deleteMany();
+      await prisma.car.createMany({ data: cars });
+      await prisma.company.deleteMany();
+      await prisma.company.createMany({ data: companies });
+      await prisma.customer.deleteMany();
+      await prisma.customer.createMany({ data: customers });
+      await prisma.contract.deleteMany();
+      await prisma.contract.createMany({ data: contracts });
     } catch (error) {
       throw new HttpError(
         "Failed to reset database.",
