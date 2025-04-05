@@ -38,6 +38,7 @@ const resetDbService = {
       await this.createBatch(contracts, prisma.contract);
 
     } catch (error) {
+      console.log(error)
       console.error("Hiba történt az adatbázis resetelésekor:", error);
       throw new HttpError("Failed to reset database.", HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
     }
