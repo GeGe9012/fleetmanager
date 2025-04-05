@@ -1,9 +1,18 @@
 import axios from "axios";
 import { BACKEND_URL } from "../constants/backend";
 
+export async function deleteDatabase() {
+  try {
+    const response = await axios.delete(`${BACKEND_URL}/api/resetdb`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to send reset database request.", error);
+    throw new Error("Failed to reset database.");
+  }
+}
 export async function resetDatabase() {
   try {
-    const response = await axios.get(`${BACKEND_URL}/api/resetdb`);
+    const response = await axios.post(`${BACKEND_URL}/api/resetdb`);
     return response.data;
   } catch (error) {
     console.error("Failed to send reset database request.", error);

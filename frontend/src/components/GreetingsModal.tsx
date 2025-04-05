@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Button, Spinner } from "react-bootstrap";
-import { resetDatabase } from "../services/resetDbService";
+import { deleteDatabase, resetDatabase } from "../services/resetDbService";
 
 interface ResetDatabaseModalProps {
   show: boolean;
@@ -14,6 +14,7 @@ const GreetingsModal = ({ show, onHide }: ResetDatabaseModalProps) => {
     const reset = async () => {
       try {
         setLoading(true);
+        await deleteDatabase();
         await resetDatabase();
       } catch (error) {
         console.error("Failed to reset database:", error);
