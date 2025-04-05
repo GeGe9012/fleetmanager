@@ -16,7 +16,7 @@ const GreetingsModal = ({ show, onHide }: ResetDatabaseModalProps) => {
         setLoading(true);
         await resetDatabase();
       } catch (error) {
-        console.error("Hiba történt az adatbázis resetelésekor:", error);
+        console.error("Failed to reset database:", error);
       } finally {
         onHide();
         setLoading(false);
