@@ -1,8 +1,8 @@
 import express from "express";
-import resetDbService from "../services/resetdb-service";
+import resetDbController from "../controllers/resetdb-controller";
 
 const router = express.Router();
 
-router.post("/", resetDbService.resetDatabase);
+router.post("/", resetDbController.resetDatabase);
 
 export default router;
