@@ -21,6 +21,7 @@ import {
 } from "../constants/columnKeyMaps";
 import { Car, Company, Customer, Contract } from "../interfaces/appInterfaces";
 import UpdateModal from "../components/UpdateModal";
+import GreetingsModal from "../components/GreetingsModal";
 
 export default function App() {
   const thStyle: object = {
@@ -48,9 +49,9 @@ export default function App() {
     key: string | null;
     direction: "asc" | "desc";
   }>({ key: null, direction: "asc" });
+  const [modalShow, setModalShow] = useState<boolean>(true);
 
   useEffect(() => {
-
     if (!searchTriggered) return;
     const isSearchEmpty = Object.keys(queryParams.search).length === 0;
 
@@ -231,9 +232,9 @@ export default function App() {
       );
     }
   }
-
   return (
     <>
+      <GreetingsModal show={modalShow} onHide={() => setModalShow(false)} />
       <UpdateModal
         show={updateModalShow}
         handleClose={() => setUpdateModalShow(false)}
