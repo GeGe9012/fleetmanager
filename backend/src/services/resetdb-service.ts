@@ -8,12 +8,12 @@ import cars from "../constants/cars.json";
 import companies from "../constants/companies.json";
 import customers from "../constants/customers.json";
 import contracts from "../constants/contracts.json";
-import { Prisma } from "@prisma/client";
 
 const resetDbService = {
-  async resetDatabase(req, res) {
+  async resetDatabase() {
     try {
-      res.status(200).send("Test endpoint works.");
+      
+      return "Test endpoint works.";
     } catch (error) {
       throw new HttpError(
         "Failed to reset database.",
